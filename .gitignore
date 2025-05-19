@@ -1,0 +1,30 @@
+# ---- Python / Django ----
+backend/__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+venv/
+.env
+*.env
+
+# Django specific
+backend/staticfiles/
+media/
+
+# ---- Node / Vue.js ----
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+
+# ---- OS / Editor Files ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Git ----
+*.swp
+*.swo
