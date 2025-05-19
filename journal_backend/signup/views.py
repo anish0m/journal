@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import PendingUser
+from .models import PendingUser, UserProfile
 from .serializers import SignupSerializer
 import random
 from django.core.mail import send_mail
@@ -43,7 +43,10 @@ class VerifyOTPView(APIView):
                     first_name=pending.first_name,
                     last_name=pending.last_name
                 )
-                # Profile pic can be handled later
+                UserProfile.objects.create(
+                    user=user,
+                    profile_picture=pending.profile_picture
+                )
                 pending.delete()
                 return Response({'message': 'Account created'}, status=201)
             else:
