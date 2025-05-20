@@ -27,6 +27,7 @@
   background-color: #290e56;
   color: #fff;
   min-height: 56px;
+  box-shadow: 0 2px 8px rgba(0, 0, 20, 0.05);
 }
 .navbar-title {
   font-size: 1.5rem;

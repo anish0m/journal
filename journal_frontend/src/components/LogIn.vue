@@ -4,24 +4,26 @@ import { useRouter } from "vue-router";
 import axios from "../api/axios";
 
 const router = useRouter();
+
 const yourUsername = ref("");
 const yourPassword = ref("");
 
-function submitForm(event: Event) {
+const submitForm = async (event: Event) => {
   event.preventDefault();
-  axios
-    .post("/log-in/", {
+
+  try {
+    const response = await axios.post("/log-in/", {
       username: yourUsername.value,
       password: yourPassword.value,
-    })
-    .then((response) => {
-      console.log("Login success:", response.data);
-      router.push("/profile");
-    })
-    .catch((error) => {
-      console.error("Login failed:", error.response?.data);
     });
-}
+
+    console.log("Login success:", response.data);
+    router.push(`/profile/${yourUsername.value}`);
+  } catch (error: any) {
+    console.error("Login failed:", error.response?.data);
+    router.push("/log-in");
+  }
+};
 </script>
 
 <template>

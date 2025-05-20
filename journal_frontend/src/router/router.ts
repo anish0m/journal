@@ -16,9 +16,10 @@ const routes = [
     component: () => import("../components/SignUp.vue"),
   },
   {
-    path: "/profile",
+    path: "/profile:username",
     name: "Profile",
     component: () => import("../components/UserProfile.vue"),
+    props: true,
   },
 ];
 
