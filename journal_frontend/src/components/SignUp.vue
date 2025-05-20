@@ -10,20 +10,20 @@
     href="https://unpkg.com/bs-brain@2.0.4/components/registrations/registration-4/assets/css/registration-4.css"
   />
   <!-- Registration 4 - Bootstrap Brain Component -->
-  <section class="p-3 p-md-4 p-xl-5">
+  <section class="signup-section">
     <div class="container">
-      <div class="card border-light-subtle shadow-sm">
+      <div class="signup-card">
         <div class="row g-0">
           <div class="col-12 col-md-6">
             <img
-              class="img-fluid rounded-start w-100 h-100 object-fit-cover"
+              class="signup-img"
               loading="lazy"
               src="./assets/img/logo-img-1.webp"
               alt="BootstrapBrain Logo"
             />
           </div>
           <div class="col-12 col-md-6">
-            <div class="card-body p-3 p-md-4 p-xl-5">
+            <div class="signup-card-body">
               <div class="row">
                 <div class="col-12">
                   <div class="mb-5">
@@ -189,4 +189,43 @@
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.signup-section {
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .signup-section {
+    padding: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .signup-section {
+    padding: 3rem;
+  }
+}
+.signup-card {
+  border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 0.5rem;
+  background: #fff;
+}
+.signup-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+.signup-card-body {
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .signup-card-body {
+    padding: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .signup-card-body {
+    padding: 3rem;
+  }
+}
+</style>
