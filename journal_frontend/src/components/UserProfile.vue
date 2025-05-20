@@ -213,7 +213,7 @@ body {
 }
 
 .edit-btn {
-  background-color: #573aa8;
+  background-color: #615dd0;
   color: #fff;
   border: none;
   padding: 7px 15px;
@@ -222,7 +222,7 @@ body {
 }
 
 .edit-btn:hover {
-  background-color: #492487;
+  background-color: #341667;
   color: #fff;
 }
 

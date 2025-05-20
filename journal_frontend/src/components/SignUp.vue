@@ -115,9 +115,7 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Already have an account?
-                    <a href="#!" class="link-text"
-                      >Log in</a
-                    >
+                    <a href="#!" class="link-text">Log in</a>
                   </p>
                 </div>
               </div>
@@ -171,8 +169,8 @@
 }
 
 input::placeholder {
-  color: #868e96; 
-  opacity: 1; 
+  color: #868e96;
+  opacity: 1;
 }
 
 form .form-label {
@@ -203,15 +201,15 @@ form .col-md-6 {
 }
 .signup-btn:hover {
   background-color: #341667;
-  color: #fff
+  color: #fff;
 }
 
-.link-text{
+.link-text {
   text-decoration: none;
   color: #573aa8;
 }
 
-.link-text:hover{
+.link-text:hover {
   color: #492487;
   cursor: pointer;
 }

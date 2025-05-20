@@ -10,20 +10,20 @@
     href="https://unpkg.com/bs-brain@2.0.4/components/registrations/registration-4/assets/css/registration-4.css"
   />
   <!-- Registration 4 - Bootstrap Brain Component -->
-  <section class="signup-section">
+  <section class="login-section">
     <div class="container">
-      <div class="signup-card">
+      <div class="login-card">
         <div class="row g-0">
           <div class="col-12 col-md-6">
             <img
-              class="signup-img"
+              class="login-img"
               loading="lazy"
               src="../assets/card.jpg"
               alt="BootstrapBrain Logo"
             />
           </div>
           <div class="col-12 col-md-6">
-            <div class="signup-card-body">
+            <div class="login-card-body">
               <div class="row">
                 <div class="col-12">
                   <div class="mb-5">
@@ -64,7 +64,7 @@
                   </div>
                   <div class="col-12">
                     <div class="d-grid">
-                      <button class="btn bsb-btn-xl signup-btn" type="submit">
+                      <button class="btn bsb-btn-xl login-btn" type="submit">
                         Log in
                       </button>
                     </div>
@@ -76,9 +76,7 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Don't have an account yet?
-                    <a href="#!" class="link-text"
-                      >Sign up</a
-                    >
+                    <a href="#!" class="link-text">Sign up</a>
                   </p>
                 </div>
               </div>
@@ -91,49 +89,49 @@
 </template>
 
 <style scoped>
-.signup-section {
+.login-section {
   padding: 1rem;
   color: #341667;
 }
 @media (min-width: 768px) {
-  .signup-section {
+  .login-section {
     padding: 2rem;
   }
 }
 @media (min-width: 1200px) {
-  .signup-section {
+  .login-section {
     padding: 3rem;
   }
 }
-.signup-card {
+.login-card {
   box-shadow: 0 2px 8px rgba(0, 0, 20, 0.05);
   border-radius: 0.5rem;
   background: #fff;
   border: 0.25px solid #c0adcd;
 }
-.signup-img {
+.login-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 0.5rem 0 0 0.5rem;
 }
-.signup-card-body {
+.login-card-body {
   padding: 1rem;
 }
 @media (min-width: 768px) {
-  .signup-card-body {
+  .login-card-body {
     padding: 2rem;
   }
 }
 @media (min-width: 1200px) {
-  .signup-card-body {
+  .login-card-body {
     padding: 3rem;
   }
 }
 
 input::placeholder {
-  color: #868e96; 
-  opacity: 1; 
+  color: #868e96;
+  opacity: 1;
 }
 
 form .form-label {
@@ -150,29 +148,29 @@ form .col-md-6 {
   justify-content: flex-start;
 }
 
-.signup-card-body h3 {
+.login-card-body h3 {
   color: #492487;
   font-weight: lighter;
 }
 
-.signup-btn {
+.login-btn {
   background-color: #615dd0;
   border-radius: 7px;
   padding: 0.75rem 2rem;
   border: none;
   color: #fff;
 }
-.signup-btn:hover {
+.login-btn:hover {
   background-color: #341667;
-  color: #fff
+  color: #fff;
 }
 
-.link-text{
+.link-text {
   text-decoration: none;
   color: #573aa8;
 }
 
-.link-text:hover{
+.link-text:hover {
   color: #492487;
   cursor: pointer;
 }
