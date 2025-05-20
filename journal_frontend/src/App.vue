@@ -1,5 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UserProfile from './components/UserProfile.vue';
 
-<template></template>
+</script>
+
+<template>
+  <UserProfile/>
+</template>
 
 <style scoped></style>
