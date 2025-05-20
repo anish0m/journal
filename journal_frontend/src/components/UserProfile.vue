@@ -1,152 +1,168 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const now = new Date();
+const formattedDate = now.toLocaleString("en-US", {
+  month: "long",
+  year: "numeric",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+</script>
 
 <template>
   <section>
-    <div class="container py-4">
-      <div class="row mb-4">
-        <div class="col-12">
-          <nav aria-label="breadcrumb" class="bg-dark text-white rounded-3 p-3 mb-4">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#" class="text-white-50">Home</a></li>
-              <li class="breadcrumb-item"><a href="#" class="text-white-50">User</a></li>
-              <li class="breadcrumb-item active text-white" aria-current="page">
-                User Profile
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-      <div class="row g-4">
-        <!-- Profile Card -->
-        <div class="col-lg-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body text-center">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                alt="avatar"
-                class="rounded-circle img-fluid mb-3"
-                style="width: 120px"
-              />
-              <h5 class="my-2 fw-bold">John Smith</h5>
-              <p class="text-muted mb-1">Full Stack Developer</p>
-              <p class="text-muted mb-3">Bay Area, San Francisco, CA</p>
-              <div class="d-flex justify-content-center gap-2 mb-3">
-                <button type="button" class="btn btn-primary px-4 fw-bold">Follow</button>
-                <button type="button" class="btn btn-outline-primary px-4 fw-bold">Message</button>
-              </div>
-            </div>
-          </div>
-          <div class="card mt-4 shadow-sm">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <span class="text-muted">https://mdbootstrap.com</span>
-              </li>
-              <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fab fa-github fa-lg text-dark"></i>
-                <span class="text-muted">mdbootstrap</span>
-              </li>
-              <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fab fa-twitter fa-lg" style="color: #55acee"></i>
-                <span class="text-muted">@mdbootstrap</span>
-              </li>
-              <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fab fa-instagram fa-lg" style="color: #ac2bac"></i>
-                <span class="text-muted">mdbootstrap</span>
-              </li>
-              <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998"></i>
-                <span class="text-muted">mdbootstrap</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Profile Details -->
-        <div class="col-lg-8">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <div class="row mb-3">
-                <div class="col-sm-3 fw-bold">Full Name</div>
-                <div class="col-sm-9 text-muted">Johnatan Smith</div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-3 fw-bold">Email</div>
-                <div class="col-sm-9 text-muted">example@example.com</div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-3 fw-bold">Phone</div>
-                <div class="col-sm-9 text-muted">(097) 234-5678</div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-sm-3 fw-bold">Mobile</div>
-                <div class="col-sm-9 text-muted">(098) 765-4321</div>
-              </div>
-              <div class="row">
-                <div class="col-sm-3 fw-bold">Address</div>
-                <div class="col-sm-9 text-muted">Bay Area, San Francisco, CA</div>
-              </div>
-            </div>
-          </div>
-          <div class="row g-4">
-            <div class="col-md-6">
-              <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                  <p class="mb-4">
-                    <span class="text-primary font-italic me-1">assigment</span>
-                    Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: 0.9rem">Web Design</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"></div>
-                  </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Website Markup</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"></div>
-                  </div>
-                  <p class="mb-1" style="font-size: 0.9rem">One Page</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"></div>
-                  </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Mobile Template</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"></div>
-                  </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Backend API</p>
-                  <div class="progress rounded" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"></div>
+    <div class="container">
+      <div class="main-body">
+        <div class="row gutters-sm">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <img
+                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                    alt="Admin"
+                    class="rounded-circle"
+                    width="150"
+                  />
+                  <div class="mt-3">
+                    <h4>Anishom Frost</h4>
+                    <p class="text-secondary mb-3">Software Engineer</p>
+                    <button class="btn btn-primary">Follow</button>
+                    <button class="btn btn-outline-primary">Message</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                  <p class="mb-4">
-                    <span class="text-primary font-italic me-1">assigment</span>
-                    Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: 0.9rem">Web Design</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"></div>
+            <div class="card mt-3">
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                >
+                  <h6 class="mb-0">
+                    <i class="bi bi-linkedin pe-2 text-primary"></i>LinkedIn
+                  </h6>
+                  <span class="text-secondary">https://linkedin.com</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                >
+                  <h6 class="mb-0"><i class="bi bi-github pe-2"></i>Github</h6>
+                  <span class="text-secondary">https://github.com</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                >
+                  <h6 class="mb-0">
+                    <i class="bi bi-twitter pe-2 text-info"></i>Twitter
+                  </h6>
+                  <span class="text-secondary">https://x.com</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                >
+                  <h6 class="mb-0">
+                    <i class="bi bi-instagram pe-2 text-danger"></i>Instagram
+                  </h6>
+                  <span class="text-secondary">https://instagram.com</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                >
+                  <h6 class="mb-0">
+                    <i class="bi bi-facebook pe-2 text-primary"></i>Facebook
+                  </h6>
+                  <span class="text-secondary">https://facebook.com</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Full Name</h6>
                   </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Website Markup</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 72%"></div>
+                  <div class="col-sm-9 text-secondary">Anishom Frost</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Username</h6>
                   </div>
-                  <p class="mb-1" style="font-size: 0.9rem">One Page</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 89%"></div>
+                  <div class="col-sm-9 text-secondary">khi0ne</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Email</h6>
                   </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Mobile Template</p>
-                  <div class="progress rounded mb-3" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 55%"></div>
+                  <div class="col-sm-9 text-secondary">khi0ne@gmail.com</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Mobile</h6>
                   </div>
-                  <p class="mb-1" style="font-size: 0.9rem">Backend API</p>
-                  <div class="progress rounded" style="height: 6px">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width: 66%"></div>
+                  <div class="col-sm-9 text-secondary">(123) 456-7890</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-3">
+                    <h6 class="mb-0">Address</h6>
+                  </div>
+                  <div class="col-sm-9 text-secondary">California, USA</div>
+                </div>
+                <hr />
+                <div class="row">
+                  <div class="col-sm-12">
+                    <a
+                      class="btn edit-btn"
+                      target="__blank"
+                      href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
+                      >Edit</a
+                    >
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div class="row gutters-sm">
+              <div class="col-12 mb-3">
+                <div class="card h-100">
+                  <div
+                    class="card-header d-flex justify-content-between align-items-center m-2"
+                  >
+                    <h3 class="mt-1 mb-0">My latest thoughts...</h3>
+                    <button class="btn edit-btn" target="__blank">
+                      Add new
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h4 class="card-title mb-2 mx-1 text-muted">
+                          How I approach problem solving
+                        </h4>
+                        <h6 class="card-subtitle mb-3 mx-1 text-muted">
+                          {{ formattedDate }}
+                        </h6>
+                        <p class="card-text">
+                          I believe in breaking down complex problems into
+                          smaller, manageable pieces. This allows me to focus on
+                          one aspect at a time and iterate quickly.
+                          Collaboration and feedback are key to refining
+                          solutions and achieving the best results.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row gutters-sm">
+              <div class="col-12 mb-3"></div>
             </div>
           </div>
         </div>
@@ -155,4 +171,83 @@
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+body {
+  margin-top: 20px;
+  text-align: left;
+  background-color: #fff;
+}
+.main-body {
+  padding: 15px;
+}
+.card {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 20, 0.1), 0 1px 2px 0 rgba(0, 0, 20, 0.06);
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 20, 0.125);
+  border-radius: 0.25rem;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 0px solid rgba(0, 0, 20, 0.125);
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1rem;
+}
+
+.card-text {
+  border-top: 1px solid rgba(0, 0, 20, 0.125);
+  padding: 1rem 0;
+}
+
+.edit-btn {
+  background-color: #573aa8;
+  color: #fff;
+  border: none;
+  padding: 7px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.edit-btn:hover {
+  background-color: #492487;
+  color: #fff;
+}
+
+.gutters-sm {
+  margin-right: -8px;
+  margin-left: -8px;
+}
+
+.gutters-sm > .col,
+.gutters-sm > [class*="col-"] {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.mb-3,
+.my-3 {
+  margin-bottom: 1rem !important;
+}
+
+.bg-gray-300 {
+  background-color: #fff;
+}
+.h-100 {
+  height: 100% !important;
+}
+.shadow-none {
+  box-shadow: none !important;
+}
+</style>
