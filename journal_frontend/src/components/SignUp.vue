@@ -36,12 +36,12 @@
               </div>
               <form action="#!">
                 <div class="row gy-3 gy-md-4 overflow-hidden">
-                  <div class="col-12">
-                    <label for="firstName" class="form-label"
-                      >First Name <span class="text-danger">*</span></label
-                    >
+                  <div class="col-12 col-md-6">
+                    <label for="firstName" class="form-label">
+                      First Name <span class="text-danger">*</span>
+                    </label>
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       name="firstName"
                       id="firstName"
@@ -49,16 +49,29 @@
                       required
                     />
                   </div>
-                  <div class="col-12">
-                    <label for="lastName" class="form-label"
-                      >Last Name <span class="text-danger">*</span></label
-                    >
+                  <div class="col-12 col-md-6">
+                    <label for="lastName" class="form-label">
+                      Last Name <span class="text-danger">*</span>
+                    </label>
                     <input
-                      type="email"
+                      type="text"
                       class="form-control"
                       name="lastName"
                       id="lastName"
                       placeholder="Last Name"
+                      required
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for="userName" class="form-label"
+                      >Username <span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="userName"
+                      id="userName"
+                      placeholder="Username"
                       required
                     />
                   </div>
@@ -227,5 +240,16 @@
   .signup-card-body {
     padding: 3rem;
   }
+}
+
+form .form-label {
+  align-self: flex-start;
+  margin-bottom: 0.25rem;
+}
+form .col-12,
+form .col-md-6 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
