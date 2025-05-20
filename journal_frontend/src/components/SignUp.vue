@@ -104,9 +104,15 @@
                   </div>
                   <div class="col-12">
                     <div class="d-grid">
-                      <button class="btn bsb-btn-xl signup-btn" type="submit">
-                        Sign up
-                      </button>
+                      <router-link to="/profile" custom v-slot="{ navigate }">
+                        <button
+                          class="btn bsb-btn-xl signup-btn"
+                          type="button"
+                          @click="navigate"
+                        >
+                          Sign up
+                        </button>
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -116,7 +122,7 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Already have an account?
-                    <a href="#!" class="link-text">Log in</a>
+                    <router-link to="/log-in" class="link-text">Log in</router-link>
                   </p>
                 </div>
               </div>

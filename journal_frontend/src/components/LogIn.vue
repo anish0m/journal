@@ -19,7 +19,7 @@
               class="login-img"
               loading="lazy"
               src="../assets/card.jpg"
-              alt="BootstrapBrain Logo"
+              alt="Journal"
             />
           </div>
           <div class="col-12 col-md-6">
@@ -65,9 +65,15 @@
                   </div>
                   <div class="col-12">
                     <div class="d-grid">
-                      <button class="btn bsb-btn-xl login-btn" type="submit">
-                        Log in
-                      </button>
+                      <router-link to="/profile" custom v-slot="{ navigate }">
+                        <button
+                          class="btn bsb-btn-xl login-btn"
+                          type="button"
+                          @click="navigate"
+                        >
+                          Log in
+                        </button>
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -77,7 +83,7 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Don't have an account yet?
-                    <a href="#!" class="link-text">Sign up</a>
+                    <router-link to="/sign-up" class="link-text">Sign up</router-link>
                   </p>
                 </div>
               </div>
