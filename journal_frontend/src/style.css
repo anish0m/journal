@@ -14,3 +14,20 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* see how the color palate looks from here */
+sample {
+  color: #000014;     /*01*/
+  color: #140035;     /*02*/
+  color: #290e56;     /*03*/
+  color: #341667;     /*04*/
+  color: #3e1d77;     /*05*/
+  color: #492487;     /*06*/
+  color: #532c97;     /*07*/
+  color: #573aa8;     /*08*/
+  color: #5b48b8;     /*09*/
+  color: #615dd0;     /*10*/
+  color: #6771e8;     /*11*/
+  color: #7399ff;     /*12*/
+  color: #b9ccff;     /*13*/
+}
