@@ -1,4 +1,28 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import axios from "../api/axios";
+
+const router = useRouter();
+const yourUsername = ref("");
+const yourPassword = ref("");
+
+function submitForm(event: Event) {
+  event.preventDefault();
+  axios
+    .post("/log-in/", {
+      username: yourUsername.value,
+      password: yourPassword.value,
+    })
+    .then((response) => {
+      console.log("Login success:", response.data);
+      router.push("/profile");
+    })
+    .catch((error) => {
+      console.error("Login failed:", error.response?.data);
+    });
+}
+</script>
 
 <template>
   <link
@@ -34,7 +58,7 @@
                   </div>
                 </div>
               </div>
-              <form action="#!">
+              <form @submit="submitForm">
                 <div class="row gy-3 gy-md-4 overflow-hidden">
                   <div class="col-12">
                     <label for="userName" class="form-label"
@@ -47,6 +71,7 @@
                       id="userName"
                       placeholder="Username"
                       required
+                      v-model="yourUsername"
                     />
                   </div>
                   <div class="col-12">
@@ -61,19 +86,14 @@
                       value=""
                       placeholder="Password"
                       required
+                      v-model="yourPassword"
                     />
                   </div>
                   <div class="col-12">
                     <div class="d-grid">
-                      <router-link to="/profile" custom v-slot="{ navigate }">
-                        <button
-                          class="btn bsb-btn-xl login-btn"
-                          type="button"
-                          @click="navigate"
-                        >
-                          Log in
-                        </button>
-                      </router-link>
+                      <button class="btn bsb-btn-xl login-btn" type="submit">
+                        Log in
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -83,7 +103,9 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Don't have an account yet?
-                    <router-link to="/sign-up" class="link-text">Sign up</router-link>
+                    <router-link to="/sign-up" class="link-text"
+                      >Sign up</router-link
+                    >
                   </p>
                 </div>
               </div>
