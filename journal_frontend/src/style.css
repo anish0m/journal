@@ -14,6 +14,35 @@ body {
   padding: 0;
 }
 
+.custom-navbar {
+  background-color: #290e56;
+  color: #fff;
+  min-height: 56px;
+}
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  transition: color 0.2s;
+  padding: 0 0.5rem;
+}
+.navbar-logo {
+  height: 32px;
+  width: 32px;
+  object-fit: contain;
+}
+.navbar-profile-icon {
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0 1rem;
+}
+.custom-navbar .navbar-title:hover,
+.custom-navbar .navbar-profile-icon:hover {
+  color: #b9ccff;
+}
+
 /* see how the color palate looks from here */
 sample {
   color: #000014;     /*01*/

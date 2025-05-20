@@ -97,6 +97,7 @@
                       class="form-control"
                       name="password"
                       id="password"
+                      placeholder="Password"
                       value=""
                       required
                     />

@@ -59,6 +59,7 @@
                       name="password"
                       id="password"
                       value=""
+                      placeholder="Password"
                       required
                     />
                   </div>

@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import LogIn from './components/LogIn.vue';
+</script>
 
-<template></template>
+<template>
+  <LogIn />
+</template>
 
 <style scoped></style>
