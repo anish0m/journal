@@ -18,7 +18,7 @@
             <img
               class="signup-img"
               loading="lazy"
-              src="./assets/img/logo-img-1.webp"
+              src="../assets/card.jpg"
               alt="BootstrapBrain Logo"
             />
           </div>
@@ -205,7 +205,7 @@
 }
 .signup-card {
   border: 1px solid #eee;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
   background: #fff;
 }
