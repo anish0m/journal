@@ -4,3 +4,13 @@
   padding: 2rem;
   text-align: center;
 }
+
+body {
+  background-image: url('./assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}

@@ -1,5 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import SignUp from './components/SignUp.vue';
 
-<template></template>
+</script>
+
+<template>
+  <SignUp />
+</template>
 
 <style scoped></style>
