@@ -3,6 +3,14 @@ import { ref } from "vue";
 import axiosInstance from "../api/axios";
 import router from "../router/router";
 
+const signupData = ref({
+  first_name: "",
+  last_name: "",
+  user_name: "",
+  email: "",
+  password: "",
+});
+
 const isImageUploaded = ref(false);
 
 const handleUpload = () => {
@@ -12,11 +20,8 @@ const handleUpload = () => {
 const handleSignup = async (event: Event) => {
   event.preventDefault();
   try {
-    const response = await axiosInstance.post("/sign-up/", {
-      //l fields from your backend model
-    });
-    console.log("Signup success:", response.data);
-    router.push("/log-in");
+    const response = await axiosInstance.post("/sign-up/", signupData.value);
+    router.push(`/profile/${response.data.user_name}`);
   } catch (error: any) {
     console.error("Signup failed:", error.response?.data);
   }
@@ -69,6 +74,7 @@ const handleSignup = async (event: Event) => {
                       name="firstName"
                       id="firstName"
                       placeholder="First Name"
+                      v-model="signupData.first_name"
                       required
                     />
                   </div>
@@ -82,6 +88,7 @@ const handleSignup = async (event: Event) => {
                       name="lastName"
                       id="lastName"
                       placeholder="Last Name"
+                      v-model="signupData.last_name"
                       required
                     />
                   </div>
@@ -95,6 +102,7 @@ const handleSignup = async (event: Event) => {
                       name="userName"
                       id="userName"
                       placeholder="Username"
+                      v-model="signupData.user_name"
                       required
                     />
                   </div>
@@ -108,6 +116,7 @@ const handleSignup = async (event: Event) => {
                       name="email"
                       id="email"
                       placeholder="email@example.com"
+                      v-model="signupData.email"
                       required
                     />
                   </div>
@@ -121,6 +130,7 @@ const handleSignup = async (event: Event) => {
                       name="password"
                       id="password"
                       placeholder="Password"
+                      v-model="signupData.password"
                       value=""
                       required
                     />
@@ -132,7 +142,8 @@ const handleSignup = async (event: Event) => {
                         :disabled="isImageUploaded"
                         @click="handleUpload"
                       >
-                        Upload Image
+                        Upload Image 
+                        <!-- handle the image binding later -->
                         <i class="bi bi-upload ms-2"></i>
                       </button>
                       <button
