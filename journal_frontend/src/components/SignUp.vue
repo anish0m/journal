@@ -1,4 +1,27 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+import axiosInstance from "../api/axios";
+import router from "../router/router";
+
+const isImageUploaded = ref(false);
+
+const handleUpload = () => {
+  isImageUploaded.value = true;
+};
+
+const handleSignup = async (event: Event) => {
+  event.preventDefault();
+  try {
+    const response = await axiosInstance.post("/sign-up/", {
+      //l fields from your backend model
+    });
+    console.log("Signup success:", response.data);
+    router.push("/log-in");
+  } catch (error: any) {
+    console.error("Signup failed:", error.response?.data);
+  }
+};
+</script>
 
 <template>
   <link
@@ -103,16 +126,23 @@
                     />
                   </div>
                   <div class="col-12">
-                    <div class="d-grid">
-                      <router-link to="/profile" custom v-slot="{ navigate }">
-                        <button
-                          class="btn bsb-btn-xl signup-btn"
-                          type="button"
-                          @click="navigate"
-                        >
-                          Sign up
-                        </button>
-                      </router-link>
+                    <div class="d-flex justify-content-end gap-2">
+                      <button
+                        class="btn btn-outline-dark d-flex align-items-center upload-btn"
+                        :disabled="isImageUploaded"
+                        @click="handleUpload"
+                      >
+                        Upload Image
+                        <i class="bi bi-upload ms-2"></i>
+                      </button>
+                      <button
+                        class="btn btn-outline-dark signup-btn"
+                        type="button"
+                        @click="handleSignup"
+                      >
+                        Sign up
+                        <i class="bi bi-box-arrow-in-right ms-2"></i>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -122,7 +152,9 @@
                   <hr class="mt-5 mb-4 border-secondary-subtle" />
                   <p class="m-0 text-secondary text-center">
                     Already have an account?
-                    <router-link to="/log-in" class="link-text">Log in</router-link>
+                    <router-link to="/log-in" class="link-text"
+                      >Log in</router-link
+                    >
                   </p>
                 </div>
               </div>
@@ -199,16 +231,29 @@ form .col-md-6 {
   font-weight: lighter;
 }
 
+.upload-btn {
+  color: #615dd0;
+  border: 1px solid #615dd0;
+  border-radius: 7px;
+}
+.upload-btn:hover {
+  background-color: #341667;
+  border-color: #341667;
+  color: #fff;
+  font-weight: bold;
+}
+
 .signup-btn {
-  background-color: #615dd0;
+  color: #615dd0;
+  border: 1px solid #615dd0;
   border-radius: 7px;
   padding: 0.75rem 2rem;
-  border: none;
-  color: #fff;
 }
 .signup-btn:hover {
   background-color: #341667;
+  border-color: #341667;
   color: #fff;
+  font-weight: bold;
 }
 
 .link-text {
