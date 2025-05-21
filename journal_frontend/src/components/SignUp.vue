@@ -2,28 +2,45 @@
 import { ref } from "vue";
 import axiosInstance from "../api/axios";
 import router from "../router/router";
+import type { SignupData } from "../types/auth";
 
-const signupData = ref({
+const signupData = ref<SignupData>({
   first_name: "",
   last_name: "",
   user_name: "",
   email: "",
   password: "",
+  profile_picture: null,
 });
 
-const isImageUploaded = ref(false);
-
-const handleUpload = () => {
-  isImageUploaded.value = true;
+const handleImageUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files[0]) {
+    signupData.value.profile_picture = target.files[0];
+  }
 };
 
 const handleSignup = async (event: Event) => {
   event.preventDefault();
+
+  const formData = new FormData();
+  formData.append("first_name", signupData.value.first_name);
+  formData.append("last_name", signupData.value.last_name);
+  formData.append("user_name", signupData.value.user_name);
+  formData.append("email", signupData.value.email);
+  formData.append("password", signupData.value.password);
+
+  if (signupData.value.profile_picture) {
+    formData.append("profile_picture", signupData.value.profile_picture);
+  }
+
   try {
-    const response = await axiosInstance.post("/sign-up/", signupData.value);
+    const response = await axiosInstance.post("/sign-up/", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     router.push(`/profile/${response.data.user_name}`);
   } catch (error: any) {
-    console.error("Signup failed:", error.response?.data);
+    console.error("Signup failed:", error.response?.data || error.message);
   }
 };
 </script>
@@ -136,19 +153,22 @@ const handleSignup = async (event: Event) => {
                     />
                   </div>
                   <div class="col-12">
-                    <div class="d-flex justify-content-end gap-2">
+                    <label for="image" class="form-label"
+                      >Image <span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="file"
+                      id="image"
+                      class="form-control"
+                      accept="image/*"
+                      @change="handleImageUpload"
+                    />
+                  </div>
+                  <div class="col-12">
+                    <div class="d-grid">
                       <button
-                        class="btn btn-outline-dark d-flex align-items-center upload-btn"
-                        :disabled="isImageUploaded"
-                        @click="handleUpload"
-                      >
-                        Upload Image 
-                        <!-- handle the image binding later -->
-                        <i class="bi bi-upload ms-2"></i>
-                      </button>
-                      <button
-                        class="btn btn-outline-dark signup-btn"
-                        type="button"
+                        class="btn bsb-btn signup-btn"
+                        type="submit"
                         @click="handleSignup"
                       >
                         Sign up
@@ -242,16 +262,23 @@ form .col-md-6 {
   font-weight: lighter;
 }
 
-.upload-btn {
-  color: #615dd0;
-  border: 1px solid #615dd0;
-  border-radius: 7px;
+input.form-control[type="file"]::file-selector-button {
+  background-color: #f6f4fa !important;
+  color: #573aa8 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 0.4em 1em !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+  transition: background 0.2s;
 }
-.upload-btn:hover {
-  background-color: #341667;
-  border-color: #341667;
-  color: #fff;
-  font-weight: bold;
+
+input.form-control[type="file"]::file-selector-button:hover {
+  background-color: #e2d9f3 !important;
+}
+
+input.form-control[type="file"] {
+  color: #868e96 !important;
 }
 
 .signup-btn {
