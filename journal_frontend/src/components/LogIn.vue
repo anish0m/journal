@@ -18,12 +18,16 @@ const submitForm = async (event: Event) => {
     });
 
     console.log("Login success:", response.data);
-    router.push(`/profile/${yourUsername.value}`);
+
+    localStorage.setItem("token", response.data.token);
+    axios.defaults.headers.common["Authorization"] = `Token ${response.data.token}`;
+
+    router.push("/profile");
   } catch (error: any) {
     console.error("Login failed:", error.response?.data);
-    router.push("/log-in");
   }
 };
+
 </script>
 
 <template>
