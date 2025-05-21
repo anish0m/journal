@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import axios from "../api/axios";
+import axiosInstance from "../api/axios";
+import router from "../router/router";
 
 const userData = ref<any>(null);
 
@@ -12,6 +14,16 @@ onMounted(async () => {
     console.error("Error fetching user data:", error);
   }
 });
+
+const logout = async () => {
+  try {
+    await axiosInstance.post("/log-out/");  // Or your actual logout endpoint
+    localStorage.removeItem("username");
+    router.push("/log-in");
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
 const now = new Date();
 const formattedDate = now.toLocaleString("en-US", {
@@ -33,7 +45,7 @@ const formattedDate = now.toLocaleString("en-US", {
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                   <img
-                    src="{{ userData.profile_picture }}"
+                    :src="userData.profile_picture"
                     alt="Admin"
                     class="rounded-circle"
                     width="150"
@@ -132,9 +144,8 @@ const formattedDate = now.toLocaleString("en-US", {
                   <div class="col-sm-12">
                     <a
                       class="btn edit-btn"
-                      target="__blank"
-                      href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills"
-                      >Edit</a
+                      @click="logout"
+                      >Log out</a
                     >
                   </div>
                 </div>
