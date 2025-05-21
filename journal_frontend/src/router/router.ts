@@ -17,6 +17,10 @@ const routes = [
     component: () => import("../components/SignUp.vue"),
   },
   {
+    path: "/profile",
+    redirect: `/profile/${localStorage.getItem("username")}`,
+  },
+  {
     path: "/profile:username",
     name: "Profile",
     component: () => import("../components/UserProfile.vue"),

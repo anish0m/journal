@@ -14,7 +14,7 @@
       </router-link>
     </div>
     <div>
-      <router-link to="/profile" class="text-decoration-none">
+      <router-link to="Profile" class="text-decoration-none">
         <i class="bi bi-person-circle navbar-profile-icon"></i>
       </router-link>
     </div>

@@ -7,8 +7,11 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class SignupView(APIView):
     def post(self, request):
         data = request.data.copy()
@@ -27,6 +30,7 @@ class SignupView(APIView):
             return Response({'message': 'OTP sent to email'}, status=201)
         return Response(serializer.errors, status=400)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class VerifyOTPView(APIView):
     def post(self, request):
         email = request.data.get('email')

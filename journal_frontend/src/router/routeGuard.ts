@@ -5,8 +5,6 @@ export const authGuard = (
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ): void => {
-  console.log("Auth guard triggered", to, from, next);
-
   const isAuthenticated = !!localStorage.getItem("username");
 
   //if to is Login. and is authenticated, redirect to profile/username, otherwise redirect to Login

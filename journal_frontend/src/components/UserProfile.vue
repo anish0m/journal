@@ -8,7 +8,7 @@ const userData = ref<any>(null);
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/profile/");
+    const response = await axios.get(`/profile/${localStorage.getItem("username")}`);
     userData.value = response.data;
   } catch (error: any) {
     console.error("Error fetching user data:", error);
