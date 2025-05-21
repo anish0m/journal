@@ -3,6 +3,8 @@ import { ref } from "vue";
 import axiosInstance from "../api/axios";
 import router from "../router/router";
 import type { SignupData } from "../types/auth";
+import * as validators from "../validators/validator";
+import { useToast } from "vue-toastification";
 
 const signupData = ref<SignupData>({
   first_name: "",
@@ -20,8 +22,47 @@ const handleImageUpload = (event: Event) => {
   }
 };
 
+const toastText = ref("");
+
+const setToaster = () => {
+  if (!validators.checkName(signupData.value.first_name)) {
+    toastText.value =
+      "First name should only contain letters and should not be empty";
+  } else if (!validators.checkName(signupData.value.last_name)) {
+    toastText.value =
+      "Last name should only contain letters and should not be empty";
+  } else if (!validators.checkUserName(signupData.value.user_name)) {
+    toastText.value =
+      "Username should only contain letters, numbers, dots, underscores, and hyphens, and should be at least 3 characters long";
+  } else if (!validators.checkEmail(signupData.value.email)) {
+    toastText.value = "Email should be in a valid format";
+  } else if (!validators.checkPassword(signupData.value.password)) {
+    toastText.value =
+      "Password should be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+  } else {
+    toastText.value = "Signup failed. Please try again.";
+  }
+};
+
+const toast = useToast();
+
 const handleSignup = async (event: Event) => {
   event.preventDefault();
+  setToaster();
+
+  if (
+    !validators.allFieldOK(
+      signupData.value.first_name,
+      signupData.value.last_name,
+      signupData.value.user_name,
+      signupData.value.email,
+      signupData.value.password,
+      signupData.value.profile_picture
+    )
+  ) {
+    toast.error(toastText.value);
+    return;
+  }
 
   const formData = new FormData();
   formData.append("first_name", signupData.value.first_name);
@@ -38,8 +79,10 @@ const handleSignup = async (event: Event) => {
     const response = await axiosInstance.post("/sign-up/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    toast.success("Successfully signed up!");
     router.push(`/profile/${response.data.user_name}`);
   } catch (error: any) {
+    toast.error(toastText.value);
     console.error("Signup failed:", error.response?.data || error.message);
   }
 };
