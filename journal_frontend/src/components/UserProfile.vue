@@ -1,4 +1,18 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
+import axios from "../api/axios";
+
+const userData = ref<any>(null);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get("/profile/");
+    userData.value = response.data;
+  } catch (error: any) {
+    console.error("Error fetching user data:", error);
+  }
+});
+
 const now = new Date();
 const formattedDate = now.toLocaleString("en-US", {
   month: "long",
@@ -19,13 +33,13 @@ const formattedDate = now.toLocaleString("en-US", {
               <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                   <img
-                    src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                    src="{{ userData.profile_picture }}"
                     alt="Admin"
                     class="rounded-circle"
                     width="150"
                   />
                   <div class="mt-3">
-                    <h4>Anishom Frost</h4>
+                    <h4>{{ userData.first_name }} {{ userData.last_name }}</h4>
                     <p class="text-secondary mb-3">Software Engineer</p>
                     <button class="btn btn-primary">Follow</button>
                     <button class="btn btn-outline-primary">Message</button>
@@ -83,21 +97,21 @@ const formattedDate = now.toLocaleString("en-US", {
                   <div class="col-sm-3">
                     <h6 class="mb-0">Full Name</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">Anishom Frost</div>
+                  <div class="col-sm-9 text-secondary">{{ userData.first_name }} {{ userData.last_name }}</div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-sm-3">
                     <h6 class="mb-0">Username</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">khi0ne</div>
+                  <div class="col-sm-9 text-secondary">{{ userData.user_name }}</div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-sm-3">
                     <h6 class="mb-0">Email</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">khi0ne@gmail.com</div>
+                  <div class="col-sm-9 text-secondary">{{ userData.email }}</div>
                 </div>
                 <hr />
                 <div class="row">
