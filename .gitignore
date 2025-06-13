@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+
+# Node
+node_modules/
+dist/
+
+# Vue
+.env
+.DS_Store
+
+# VSCode
+.vscode/
