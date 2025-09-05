@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from .models import Profile
 from .serializers import UserSerializer, ProfileSerializer
 
+# Create your views here.
+
 class ProfileView(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
