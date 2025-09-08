@@ -45,7 +45,7 @@ function handleLogin() {
                     input-name="username"
                     input-id="userName"
                     input-placeholder="Username"
-                    :model-value="username"
+                    v-model="username"
                     :is-required="true"
                   />
                 </div>
@@ -55,7 +55,7 @@ function handleLogin() {
                     input-name="password"
                     input-id="password"
                     input-placeholder="Password"
-                    :model-value="password"
+                    v-model="password"
                   />
                 </div>
                 <div class="col-12">
@@ -146,5 +146,6 @@ form .col-md-6 {
 .link-text:hover {
   color: var(--mystic-violet);
   cursor: pointer;
+  font-weight: semi-bold;
 }
 </style>

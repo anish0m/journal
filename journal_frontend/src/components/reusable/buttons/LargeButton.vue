@@ -45,5 +45,6 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 .login-btn:hover {
   background-color: var(--indigo-mist);
   color: var(--white);
+  font-weight: bold;
 }
 </style>
