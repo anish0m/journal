@@ -32,19 +32,18 @@ async function handleSignup() {
     return;
   }
 
-  // This will be implemented in the auth store
-  // const success = await authStore.signup({
-  //   first_name: firstName.value,
-  //   last_name: lastName.value,
-  //   username: username.value,
-  //   email: email.value,
-  //   password: password.value,
-  // });
+  const success = await authStore.signup({
+    first_name: firstName.value,
+    last_name: lastName.value,
+    username: username.value,
+    email: email.value,
+    password: password.value,
+  });
 
-  // if (success) {
-  //   toast.success("Account created successfully!");
-  //   router.push("/login");
-  // }
+  if (success) {
+    toast.success("Account created successfully!");
+    router.push("/login");
+  }
 }
 </script>
 
