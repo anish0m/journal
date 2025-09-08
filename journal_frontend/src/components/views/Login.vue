@@ -2,8 +2,8 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import TextInput from "../reusable/TextInput.vue";
-import Password from "../reusable/Password.vue";
+import TextInput from "../reusable/forms/TextInput.vue";
+import Password from "../reusable/forms/Password.vue";
 import LargeButton from "../reusable/buttons/LargeButton.vue";
 import { useAuthStore } from "../../store";
 
@@ -58,23 +58,22 @@ async function handleLogin() {
                   <TextInput
                     input-label="Username"
                     input-name="username"
-                    input-id="userName"
+                    input-id="username"
                     input-placeholder="Username"
                     v-model="username"
                     :is-required="true"
                   />
                 </div>
                 <div class="col-12">
-                  <Password
-                    input-label="Password"
-                    input-name="password"
-                    input-id="password"
-                    input-placeholder="Password"
-                    v-model="password"
-                  />
+                  <Password v-model="password" />
                 </div>
                 <div class="col-12">
-                  <LargeButton label="Log In" :is-submit="true" />
+                  <LargeButton
+                    label="Log In"
+                    :is-submit="true"
+                    :disabled="authStore.loading"
+                    :loading="authStore.loading"
+                  />
                 </div>
               </div>
             </form>
