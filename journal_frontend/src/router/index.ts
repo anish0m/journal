@@ -3,8 +3,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../components/views/Home.vue')
+    redirect: () => {
+      // Replace with actual auth check later
+      const isAuthenticated = false // placeholder
+      return isAuthenticated ? '/profile' : '/login'
+    }
   },
   {
     path: '/login',
