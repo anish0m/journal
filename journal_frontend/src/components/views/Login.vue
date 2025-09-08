@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import TextInput from "../reusable/TextInput.vue";
 
 const username = ref("");
 const password = ref("");
@@ -37,17 +38,13 @@ function handleLogin() {
             <form @submit.prevent="handleLogin">
               <div class="row gy-3 gy-md-4 overflow-hidden">
                 <div class="col-12">
-                  <label for="userName" class="form-label"
-                    >Username <span class="text-danger">*</span></label
-                  >
-                  <input
-                    v-model="username"
-                    type="text"
-                    class="form-control"
-                    name="userName"
-                    id="userName"
-                    placeholder="Username"
-                    required
+                  <TextInput
+                    input-label="Username"
+                    input-name="username"
+                    input-id="userName"
+                    input-placeholder="Username"
+                    :model-value="username"
+                    :is-required="true"
                   />
                 </div>
                 <div class="col-12">
@@ -136,13 +133,6 @@ function handleLogin() {
 input::placeholder {
   color: var(--lavender-grey);
   opacity: 1;
-}
-
-form .form-label {
-  align-self: flex-start;
-  margin-bottom: 0.25rem;
-  padding-left: 7px;
-  color: var(--indigo-mist);
 }
 
 form .col-12,
