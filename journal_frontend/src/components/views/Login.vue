@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import TextInput from "../reusable/TextInput.vue";
+import Password from "../reusable/Password.vue";
 
 const username = ref("");
 const password = ref("");
@@ -48,17 +49,12 @@ function handleLogin() {
                   />
                 </div>
                 <div class="col-12">
-                  <label for="password" class="form-label"
-                    >Password <span class="text-danger">*</span></label
-                  >
-                  <input
-                    v-model="password"
-                    type="password"
-                    class="form-control"
-                    name="password"
-                    id="password"
-                    placeholder="Password"
-                    required
+                  <Password
+                    input-label="Password"
+                    input-name="password"
+                    input-id="password"
+                    input-placeholder="Password"
+                    :model-value="password"
                   />
                 </div>
                 <div class="col-12">
