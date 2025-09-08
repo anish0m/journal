@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import TextInput from "../reusable/TextInput.vue";
 import Password from "../reusable/Password.vue";
+import LargeButton from "../reusable/buttons/LargeButton.vue";
 
 const username = ref("");
 const password = ref("");
@@ -58,11 +59,10 @@ function handleLogin() {
                   />
                 </div>
                 <div class="col-12">
-                  <div class="d-grid">
-                    <button class="btn bsb-btn-xl login-btn" type="submit">
-                      Log in
-                    </button>
-                  </div>
+                  <LargeButton
+                    label="Log In"
+                    :is-submit="true"
+                  />
                 </div>
               </div>
             </form>
@@ -126,11 +126,6 @@ function handleLogin() {
   }
 }
 
-input::placeholder {
-  color: var(--lavender-grey);
-  opacity: 1;
-}
-
 form .col-12,
 form .col-md-6 {
   display: flex;
@@ -141,18 +136,6 @@ form .col-md-6 {
 .login-card-body h3 {
   color: var(--mystic-violet);
   font-weight: lighter;
-}
-
-.login-btn {
-  background-color: var(--violet-step-a);
-  border-radius: 7px;
-  padding: 0.75rem 2rem;
-  border: none;
-  color: var(--white);
-}
-.login-btn:hover {
-  background-color: var(--indigo-mist);
-  color: var(--white);
 }
 
 .link-text {

@@ -62,4 +62,9 @@ console.log(props);
   padding-left: 7px;
   color: var(--indigo-mist);
 }
+
+input::placeholder {
+  color: var(--lavender-grey);
+  opacity: 1;
+}
 </style>
