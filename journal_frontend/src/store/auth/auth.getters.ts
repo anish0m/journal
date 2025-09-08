@@ -1,0 +1,1 @@
+//all getters related to auth-store
