@@ -30,21 +30,19 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 </script>
 
 <template>
-  <div class="d-grid">
-    <button class="btn bsb-btn-xl base-lg-btn" :type="buttonType">{{ label }}</button>
-  </div>
+    <button class="btn base-btn" :type="buttonType">{{ label }}</button>
 </template>
 
 <style scoped>
-.base-lg-btn {
+.base-btn {
   background-color: var(--light-lavender-violet);
   border-radius: 7px;
-  padding: 0.75rem 2rem;
+  padding: 0.5rem;
   border: none;
   color: var(--white);
 }
 
-.base-lg-btn:hover {
+.base-btn:hover {
   background-color: var(--indigo-mist);
   color: var(--white);
   font-weight: bold;

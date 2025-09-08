@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import { useAuthStore } from "../../store";
+import BaseButton from "../reusable/buttons/BaseButton.vue";
 
 // fetch this from the backend
 const user = ref({
@@ -74,8 +75,8 @@ function handleAddJournal() {
                 <div class="mt-3">
                   <h4>{{ user.fullName }}</h4>
                   <p class="text-secondary mb-3">{{ user.title }}</p>
-                  <button class="btn btn-primary">Follow</button>
-                  <button class="btn btn-outline-primary">Message</button>
+                  <BaseButton class="me-1" label="Follow" :is-button="true" />
+                  <BaseButton label="Message" :is-button="true" />
                 </div>
               </div>
             </div>
@@ -163,9 +164,12 @@ function handleAddJournal() {
               <hr />
               <div class="row">
                 <div class="col-sm-12">
-                  <button @click="handleEditProfile" class="btn edit-btn">
-                    Edit
-                  </button>
+                  <BaseButton
+                    label="Edit"
+                    :is-button="true"
+                    @click="handleEditProfile"
+                    class="px-3"
+                  />
                 </div>
               </div>
             </div>
@@ -178,9 +182,12 @@ function handleAddJournal() {
                   class="card-header d-flex justify-content-between align-items-center m-2"
                 >
                   <h3 class="mt-1 mb-0">My latest thoughts...</h3>
-                  <button @click="handleAddJournal" class="btn edit-btn">
-                    Add new
-                  </button>
+                  <BaseButton
+                    label="Add New"
+                    :is-button="true"
+                    @click="handleAddJournal"
+                    class="px-3"
+                  />
                 </div>
                 <div class="card-body">
                   <div class="card h-100">
@@ -249,20 +256,6 @@ body {
 .card-text {
   border-top: 1px solid rgba(0, 0, 20, 0.125);
   padding: 1rem 0;
-}
-
-.edit-btn {
-  background-color: #615dd0;
-  color: #fff;
-  border: none;
-  padding: 7px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
-.edit-btn:hover {
-  background-color: #341667;
-  color: #fff;
 }
 
 .gutters-sm {
