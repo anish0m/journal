@@ -17,9 +17,17 @@
   --soft-periwinkle: #7399ff;
   --light-periwinkle: #b9ccff;
   --pale-periwinkle: #c7d6ff;
+  --light-lavender-violet: #9a78bd;
   --lavender-grey: #9586a1;
   --light-lavender-grey: #e6dff0;
   --ultra-light-lavender: #f6f4fa;
   --whisper-lavender: #faf9fc;
   --white: #ffffff;
+}
+
+body {
+  background-color: var(--white);
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }

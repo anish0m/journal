@@ -42,7 +42,7 @@ const userName = ref("");
 
 <style scoped>
 .custom-navbar {
-  background: var(--periwinkle-blue);
+  background: var(--light-lavender-violet);
 }
 .logo-img {
   height: 3rem;
