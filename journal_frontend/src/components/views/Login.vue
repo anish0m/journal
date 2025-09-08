@@ -1,17 +1,32 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
 import TextInput from "../reusable/TextInput.vue";
 import Password from "../reusable/Password.vue";
 import LargeButton from "../reusable/buttons/LargeButton.vue";
+import { useAuthStore } from "../../store";
+
+const router = useRouter();
+const authStore = useAuthStore();
+const toast = useToast();
 
 const username = ref("");
 const password = ref("");
-const router = useRouter();
 
-function handleLogin() {
-  // TODO: Connect to backend API here
-  router.push("/profile");
+async function handleLogin() {
+  if (!username.value || !password.value) {
+    return;
+  }
+
+  const success = await authStore.login(username.value, password.value);
+
+  if (success) {
+    toast.success("Successfully logged in!");
+    router.push("/profile");
+  } else {
+    toast.error("Invalid username or password!");
+  }
 }
 </script>
 
@@ -59,10 +74,7 @@ function handleLogin() {
                   />
                 </div>
                 <div class="col-12">
-                  <LargeButton
-                    label="Log In"
-                    :is-submit="true"
-                  />
+                  <LargeButton label="Log In" :is-submit="true" />
                 </div>
               </div>
             </form>
