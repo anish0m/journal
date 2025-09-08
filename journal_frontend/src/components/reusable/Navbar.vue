@@ -32,7 +32,7 @@ const userName = ref("");
           to="/profile"
           class="profile-link d-flex align-items-center"
         >
-          <span class="me-3">Profile</span>
+          <span class="profile-name">Profile</span>
           <i class="bi bi-person-circle profile-icon"></i>
         </router-link>
       </div>
@@ -51,23 +51,27 @@ const userName = ref("");
 }
 .navbar-brand {
   color: var(--white);
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
 }
 .brand-text {
   color: var(--white);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bolder;
 }
 .brand-text:hover,
 .brand-text:focus {
   color: var(--white);
 }
+.profile-name {
+  margin-right: 0.75rem;
+  margin-top: 0.15rem;
+}
 .profile-link {
   color: var(--white);
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: color 0.2s;
   display: flex;
@@ -78,7 +82,7 @@ const userName = ref("");
   color: var(--deep-midnight-blue);
 }
 .profile-icon {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   vertical-align: middle;
   transition: color 0.2s;
   /* Remove color property here */

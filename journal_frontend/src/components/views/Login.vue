@@ -1,3 +1,181 @@
-<script setup lang="ts"></script>
-<template></template>
-<style scoped></style>
+<script setup lang="ts">
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const username = ref("");
+const password = ref("");
+const router = useRouter();
+
+function handleLogin() {
+  // TODO: Connect to backend API here
+  router.push("/profile");
+}
+</script>
+
+<template>
+  <div class="container login-section">
+    <div class="login-card">
+      <div class="row g-0">
+        <div class="col-12 col-md-6">
+          <img
+            class="login-img"
+            loading="lazy"
+            src="../../assets/card.jpg"
+            alt="Journal"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="login-card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="mb-5">
+                  <h2>Log in</h2>
+                  <h3 class="fs-6 fw-normal m-0">Pick up where you left off</h3>
+                </div>
+              </div>
+            </div>
+            <form @submit.prevent="handleLogin">
+              <div class="row gy-3 gy-md-4 overflow-hidden">
+                <div class="col-12">
+                  <label for="userName" class="form-label"
+                    >Username <span class="text-danger">*</span></label
+                  >
+                  <input
+                    v-model="username"
+                    type="text"
+                    class="form-control"
+                    name="userName"
+                    id="userName"
+                    placeholder="Username"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <label for="password" class="form-label"
+                    >Password <span class="text-danger">*</span></label
+                  >
+                  <input
+                    v-model="password"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+                <div class="col-12">
+                  <div class="d-grid">
+                    <button class="btn bsb-btn-xl login-btn" type="submit">
+                      Log in
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-12">
+                <hr class="mt-5 mb-4 border-secondary-subtle" />
+                <p class="m-0 text-secondary text-center">
+                  Don't have an account yet?
+                  <router-link to="/signup" class="link-text"
+                    >Sign up</router-link
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.login-section {
+  padding: 1rem;
+  color: var(--indigo-mist);
+  margin-top: 4rem;
+}
+@media (min-width: 768px) {
+  .login-section {
+    padding: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .login-section {
+    padding: 3rem;
+  }
+}
+.login-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 20, 0.05);
+  border-radius: 0.5rem;
+  background: var(--white);
+  border: 0.25px solid var(--lavender-grey);
+}
+.login-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+.login-card-body {
+  padding: 1rem;
+}
+@media (min-width: 768px) {
+  .login-card-body {
+    padding: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .login-card-body {
+    padding: 3rem;
+  }
+}
+
+input::placeholder {
+  color: var(--lavender-grey);
+  opacity: 1;
+}
+
+form .form-label {
+  align-self: flex-start;
+  margin-bottom: 0.25rem;
+  padding-left: 7px;
+  color: var(--indigo-mist);
+}
+
+form .col-12,
+form .col-md-6 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.login-card-body h3 {
+  color: var(--mystic-violet);
+  font-weight: lighter;
+}
+
+.login-btn {
+  background-color: var(--violet-step-a);
+  border-radius: 7px;
+  padding: 0.75rem 2rem;
+  border: none;
+  color: var(--white);
+}
+.login-btn:hover {
+  background-color: var(--indigo-mist);
+  color: var(--white);
+}
+
+.link-text {
+  text-decoration: none;
+  color: var(--deep-lavender);
+}
+
+.link-text:hover {
+  color: var(--mystic-violet);
+  cursor: pointer;
+}
+</style>
