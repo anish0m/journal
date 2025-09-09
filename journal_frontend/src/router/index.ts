@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { setupRouterGuards } from './guard'
 
 const routes = [
   {
@@ -31,5 +32,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+setupRouterGuards(router)
 
 export default router
