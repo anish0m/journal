@@ -38,7 +38,7 @@ const emitHandler = (event: Event) => {
   </label>
   <textarea
     :id="inputId"
-    v-model="modelValue"
+    :value="modelValue"
     class="form-control"
     rows="8"
     :placeholder="inputPlaceholder"

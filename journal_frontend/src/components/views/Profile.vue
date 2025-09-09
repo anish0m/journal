@@ -5,8 +5,12 @@ import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
 import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
 import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
+import BaseSecondaryButton from "../reusable/buttons/BaseSecondaryButton.vue";
+import FieldInput from "../reusable/forms/FieldInput.vue";
+import Modal from "../reusable/Modal.vue";
 
 const editMode = ref(false);
+const showModal = ref(false);
 
 const userStore = useUserStore();
 const journalStore = useJournalStore();
@@ -78,8 +82,17 @@ const handleCancelProfile = () => {
 };
 
 const handleAddJournal = () => {
-  // open modal
+  showModal.value = true;
   console.log("Add new journal clicked");
+};
+
+const handleJournalSuccess = () => {
+  journalStore.fetchEntries();
+  handleJournalModalClose();
+};
+
+const handleJournalModalClose = () => {
+  showModal.value = false;
 };
 </script>
 
@@ -171,7 +184,7 @@ const handleAddJournal = () => {
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <template v-if="editMode">
-                    <TextInput
+                    <FieldInput
                       input-label="First Name"
                       input-name="firstName"
                       input-id="firstName"
@@ -179,7 +192,7 @@ const handleAddJournal = () => {
                       v-model="temporaryUserData.first_name"
                       :is-required="true"
                     />
-                    <TextInput
+                    <FieldInput
                       input-label="Last Name"
                       input-name="lastName"
                       input-id="lastName"
@@ -200,7 +213,7 @@ const handleAddJournal = () => {
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <template v-if="editMode">
-                    <TextInput
+                    <FieldInput
                       input-label="Username"
                       input-name="username"
                       input-id="username"
@@ -221,7 +234,7 @@ const handleAddJournal = () => {
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <template v-if="editMode">
-                    <TextInput
+                    <FieldInput
                       input-label="Email"
                       input-name="email"
                       input-id="email"
@@ -241,7 +254,7 @@ const handleAddJournal = () => {
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <template v-if="editMode">
-                    <TextInput
+                    <FieldInput
                       input-label="Mobile"
                       input-name="mobile"
                       input-id="mobile"
@@ -261,7 +274,7 @@ const handleAddJournal = () => {
                 </div>
                 <div class="col-sm-9 text-secondary">
                   <template v-if="editMode">
-                    <TextInput
+                    <FieldInput
                       input-label="Address"
                       input-name="address"
                       input-id="address"
@@ -371,6 +384,11 @@ const handleAddJournal = () => {
       </div>
     </div>
   </div>
+  <Modal
+    :show="showModal"
+    @close="handleJournalModalClose"
+    @success="handleJournalSuccess"
+  />
 </template>
 
 <style scoped>

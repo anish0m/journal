@@ -46,7 +46,7 @@ const emitHandler = (event: Event) => {
     :name="inputName"
     :id="inputId"
     :placeholder="inputPlaceholder"
-    :v-model="modelValue"
+    :value="modelValue"
     :required="isRequired"
     @input="emitHandler"
   />

@@ -27,7 +27,7 @@ console.log(props);
       name="password"
       id="password"
       placeholder="Password"
-      :v-model="modelValue"
+      :value="modelValue"
       required
       @input="emitHandler"
     />

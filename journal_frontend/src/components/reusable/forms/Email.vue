@@ -26,7 +26,7 @@ console.log(props);
     name="email"
     id="email"
     placeholder="email@example.com"
-    :v-model="modelValue"
+    :value="modelValue"
     required
     @input="emitHandler"
   />
