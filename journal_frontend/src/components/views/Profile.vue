@@ -15,22 +15,22 @@ onMounted(() => {
 const user = computed(() => userStore.profile);
 
 const temporaryUserData = ref<UserProfile>({
-  id: -1,
-  username: "",
-  email: "",
-  first_name: "",
-  last_name: "",
-  title: "",
-  mobile: "",
-  address: "",
+  id: user.value?.id ?? 0,
+  username: user.value?.username ?? "",
+  email: user.value?.email ?? "",
+  first_name: user.value?.first_name ?? "",
+  last_name: user.value?.last_name ?? "",
+  title: user.value?.title ?? "",
+  mobile: user.value?.mobile ?? "",
+  address: user.value?.address ?? "",
   social_links: {
-    linkedin: "",
-    github: "",
-    twitter: "",
-    instagram: "",
-    facebook: "",
+    linkedin: user.value?.social_links?.linkedin ?? "",
+    github: user.value?.social_links?.github ?? "",
+    twitter: user.value?.social_links?.twitter ?? "",
+    instagram: user.value?.social_links?.instagram ?? "",
+    facebook: user.value?.social_links?.facebook ?? "",
   },
-  avatar: "",
+  avatar: user.value?.avatar ?? "",
 });
 
 const latestJournal = {
