@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import TextInput from "../reusable/forms/FieldInput.vue";
+import FieldInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
 import LargeButton from "../reusable/buttons/LargeButton.vue";
 import { useAuthStore } from "../../store";
@@ -55,7 +55,7 @@ const handleLogin = async () => {
             <form @submit.prevent="handleLogin">
               <div class="row gy-3 gy-md-4 overflow-hidden">
                 <div class="col-12">
-                  <TextInput
+                  <FieldInput
                     input-label="Username"
                     input-name="username"
                     input-id="username"

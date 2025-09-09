@@ -4,17 +4,17 @@ export interface UserProfile {
   email: string;
   first_name: string;
   last_name: string;
-  title?: string;
-  mobile?: string;
-  address?: string;
-  social_links?: {
-    linkedin?: string;
-    github?: string;
-    twitter?: string;
-    instagram?: string;
-    facebook?: string;
+  title: string;
+  mobile: string;
+  address: string;
+  social_links: {
+    linkedin: string;
+    github: string;
+    twitter: string;
+    instagram: string;
+    facebook: string;
   };
-  avatar?: string;
+  avatar: string;
 }
 
 export interface UserState {

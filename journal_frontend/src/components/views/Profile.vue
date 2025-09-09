@@ -23,42 +23,25 @@ onMounted(() => {
 const user = computed(() => userStore.profile);
 
 const temporaryUserData = ref<UserProfile>({
-  id: user.value?.id ?? 0,
-  username: user.value?.username ?? "",
-  email: user.value?.email ?? "",
-  first_name: user.value?.first_name ?? "",
-  last_name: user.value?.last_name ?? "",
-  title: user.value?.title ?? "",
-  mobile: user.value?.mobile ?? "",
-  address: user.value?.address ?? "",
+  id: -1,
+  username: "",
+  email: "",
+  first_name: "",
+  last_name: "",
+  title: "",
+  mobile: "",
+  address: "",
   social_links: {
-    linkedin: user.value?.social_links?.linkedin ?? "",
-    github: user.value?.social_links?.github ?? "",
-    twitter: user.value?.social_links?.twitter ?? "",
-    instagram: user.value?.social_links?.instagram ?? "",
-    facebook: user.value?.social_links?.facebook ?? "",
+    linkedin: "",
+    github: "",
+    twitter: "",
+    instagram: "",
+    facebook: "",
   },
   avatar: user.value?.avatar ?? "",
 });
 
-const userJournals = computed(() => journalStore.allEntries);
-
-const handleEditProfile = () => {
-  editMode.value = true;
-  console.log("Edit profile clicked");
-};
-
-const handleSaveProfile = async () => {
-  await userStore.updateProfile(temporaryUserData.value);
-  await userStore.fetchProfile();
-  handleCancelProfile();
-  console.log("Save profile clicked");
-};
-
-const handleCancelProfile = () => {
-  editMode.value = false;
-
-  // Reset temporaryUserData to original user data
+const reloadTemporaryUserData = () => {
   temporaryUserData.value = {
     id: user.value?.id ?? 0,
     username: user.value?.username ?? "",
@@ -77,6 +60,29 @@ const handleCancelProfile = () => {
     },
     avatar: user.value?.avatar ?? "",
   };
+};
+
+onMounted(() => {
+  reloadTemporaryUserData();
+});
+
+const userJournals = computed(() => journalStore.allEntries);
+
+const handleEditProfile = () => {
+  editMode.value = true;
+  console.log("Edit profile clicked");
+};
+
+const handleSaveProfile = async () => {
+  await userStore.updateProfile(temporaryUserData.value);
+  await userStore.fetchProfile();
+  handleCancelProfile();
+  console.log("Save profile clicked");
+};
+
+const handleCancelProfile = () => {
+  editMode.value = false;
+  reloadTemporaryUserData();
 
   console.log("Cancel profile clicked");
 };
@@ -386,6 +392,8 @@ const handleJournalModalClose = () => {
   </div>
   <Modal
     :show="showModal"
+    :title="'New Journal Entry'"
+    :content="'Write your thoughts...'"
     @close="handleJournalModalClose"
     @success="handleJournalSuccess"
   />
