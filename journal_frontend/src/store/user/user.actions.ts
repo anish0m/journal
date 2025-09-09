@@ -13,4 +13,15 @@ export const actions = {
       this.loading = false;
     }
   },
+  async updateProfile(this: any, payload: any) {
+    this.loading = true;
+    this.error = "";
+    try {
+      await Axios.put("/auth/users/me/", payload);
+    } catch (err: any) {
+      this.error = "Failed to update profile";
+    } finally {
+      this.loading = false;
+    }
+  },
 };

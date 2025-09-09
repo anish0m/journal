@@ -4,8 +4,10 @@ import { useUserStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
 import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
+import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
 
 const editMode = ref(false);
+
 const userStore = useUserStore();
 
 onMounted(() => {
@@ -51,6 +53,39 @@ const formattedDate = computed(() =>
 const handleEditProfile = () => {
   // open modal
   console.log("Edit profile clicked");
+};
+
+const handleSaveProfile = () => {
+  // saving logic here
+
+  handleCancelProfile();
+  console.log("Save profile clicked");
+};
+
+const handleCancelProfile = () => {
+  editMode.value = false;
+
+  // Reset temporaryUserData to original user data
+  temporaryUserData.value = {
+    id: user.value?.id ?? 0,
+    username: user.value?.username ?? "",
+    email: user.value?.email ?? "",
+    first_name: user.value?.first_name ?? "",
+    last_name: user.value?.last_name ?? "",
+    title: user.value?.title ?? "",
+    mobile: user.value?.mobile ?? "",
+    address: user.value?.address ?? "",
+    social_links: {
+      linkedin: user.value?.social_links?.linkedin ?? "",
+      github: user.value?.social_links?.github ?? "",
+      twitter: user.value?.social_links?.twitter ?? "",
+      instagram: user.value?.social_links?.instagram ?? "",
+      facebook: user.value?.social_links?.facebook ?? "",
+    },
+    avatar: user.value?.avatar ?? "",
+  };
+
+  console.log("Cancel profile clicked");
 };
 
 const handleAddJournal = () => {
@@ -253,12 +288,28 @@ const handleAddJournal = () => {
               <hr />
               <div class="row">
                 <div class="col-sm-12">
-                  <BaseButton
-                    label="Edit"
-                    :is-button="true"
-                    @click="handleEditProfile"
-                    class="px-3"
-                  />
+                  <div v-if="editMode">
+                    <BaseSecondaryButton
+                      label="Cancel"
+                      :is-button="true"
+                      @click="handleCancelProfile"
+                      class="px-3"
+                    />
+                    <BaseSuccessButton
+                      label="Save"
+                      :is-button="true"
+                      @click="handleSaveProfile"
+                      class="px-3 ms-2"
+                    />
+                  </div>
+                  <div v-else>
+                    <BaseButton
+                      label="Edit"
+                      :is-button="true"
+                      @click="handleEditProfile"
+                      class="px-3"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
