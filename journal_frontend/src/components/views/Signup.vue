@@ -20,7 +20,7 @@ const email = ref("");
 const password = ref("");
 
 // Form submission handler
-async function handleSignup() {
+const handleSignup = async () => {
   if (
     !firstName.value ||
     !lastName.value ||

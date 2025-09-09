@@ -1,6 +1,6 @@
 import { useAuthStore } from "../store";
 
-export function setupRouterGuards(router: any) {
+export const setupRouterGuards = (router: any) => {
   router.beforeEach((to: any, from: any, next: any) => {
     const authStore = useAuthStore();
     if (to.meta.requiresAuth && !authStore.token) {

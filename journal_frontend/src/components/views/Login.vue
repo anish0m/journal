@@ -14,7 +14,7 @@ const toast = useToast();
 const username = ref("");
 const password = ref("");
 
-async function handleLogin() {
+const handleLogin = async () => {
   if (!username.value || !password.value) {
     return;
   }
