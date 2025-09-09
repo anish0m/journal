@@ -29,24 +29,24 @@ const emit = defineEmits(["close", "success"]);
 const journalStore = useJournalStore();
 const toast = useToast();
 
-const title = ref("");
-const content = ref("");
+const newJournalTitle = ref("");
+const newJournalContent = ref("");
 
 const handleSave = async () => {
-  if (!title.value.trim() || !content.value.trim()) {
+  if (!newJournalTitle.value.trim() || !newJournalContent.value.trim()) {
     toast.error("Please fill in both title and content");
     return;
   }
 
   const success = await journalStore.createEntry({
-    title: title.value.trim(),
-    content: content.value.trim(),
+    title: newJournalTitle.value.trim(),
+    content: newJournalContent.value.trim(),
   });
 
   if (success) {
     toast.success("Successful entry!");
-    title.value = "";
-    content.value = "";
+    newJournalTitle.value = "";
+    newJournalContent.value = "";
     emit("success");
     emit("close");
   } else {
@@ -56,8 +56,8 @@ const handleSave = async () => {
 
 const handleCancel = () => {
   // Reset form
-  title.value = "";
-  content.value = "";
+  newJournalTitle.value = "";
+  newJournalContent.value = "";
   emit("close");
 };
 </script>
@@ -82,7 +82,7 @@ const handleCancel = () => {
               input-name="title"
               input-id="journalTitle"
               input-placeholder="Enter journal title"
-              v-model="title"
+              v-model="newJournalTitle"
               :is-required="true"
             />
           </div>
@@ -91,7 +91,7 @@ const handleCancel = () => {
               input-label="Content"
               input-id="journalContent"
               input-placeholder="Write your journal entry here..."
-              v-model="content"
+              v-model="newJournalContent"
               :is-required="true"
             />
           </div>
