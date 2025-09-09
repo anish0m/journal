@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import { useUserStore } from "../../store";
+import { useUserStore, useJournalStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
 import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
@@ -9,9 +9,11 @@ import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
 const editMode = ref(false);
 
 const userStore = useUserStore();
+const journalStore = useJournalStore();
 
 onMounted(() => {
   userStore.fetchProfile();
+  journalStore.fetchEntries();
 });
 
 const user = computed(() => userStore.profile);
@@ -35,29 +37,16 @@ const temporaryUserData = ref<UserProfile>({
   avatar: user.value?.avatar ?? "",
 });
 
-const latestJournal = {
-  title: "How I approach problem solving",
-  date: new Date(),
-  content:
-    "I believe in breaking down complex problems into smaller, manageable pieces. This allows me to focus on one aspect at a time and iterate quickly. Collaboration and feedback are key to refining solutions and achieving the best results.",
-};
-
-const formattedDate = computed(() =>
-  latestJournal.date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })
-);
+const userJournals = computed(() => journalStore.allEntries);
 
 const handleEditProfile = () => {
-  // open modal
+  editMode.value = true;
   console.log("Edit profile clicked");
 };
 
-const handleSaveProfile = () => {
-  // saving logic here
-
+const handleSaveProfile = async () => {
+  await userStore.updateProfile(temporaryUserData.value);
+  await userStore.fetchProfile();
   handleCancelProfile();
   console.log("Save profile clicked");
 };
@@ -330,18 +319,45 @@ const handleAddJournal = () => {
                   />
                 </div>
                 <div class="card-body">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h4 class="card-title mb-2 mx-1 text-muted">
-                        {{ latestJournal.title }}
-                      </h4>
-                      <h6 class="card-subtitle mb-3 mx-1 text-muted">
-                        {{ formattedDate }}
-                      </h6>
-                      <p class="card-text">
-                        {{ latestJournal.content }}
-                      </p>
+                  <div v-if="userJournals.length > 0">
+                    <!-- Loop through all journals -->
+                    <div
+                      v-for="journal in userJournals"
+                      :key="journal.id"
+                      class="card h-100 mb-3"
+                    >
+                      <div class="card-body">
+                        <h4 class="card-title mb-2 mx-1 text-muted">
+                          {{ journal.title }}
+                        </h4>
+                        <h6 class="card-subtitle mb-3 mx-1 text-muted">
+                          {{
+                            new Date(journal.created_at).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              }
+                            )
+                          }}
+                        </h6>
+                        <p class="card-text">
+                          {{ journal.content }}
+                        </p>
+                      </div>
                     </div>
+                  </div>
+                  <div
+                    v-else-if="journalStore.journalLoading"
+                    class="text-center"
+                  >
+                    <p>Loading your thoughts...</p>
+                  </div>
+                  <div v-else class="text-center">
+                    <p class="text-muted">
+                      No journal entries yet. Add your first thought!
+                    </p>
                   </div>
                 </div>
               </div>
