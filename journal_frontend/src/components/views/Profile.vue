@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "../../store";
+import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
 import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
 
+const editMode = ref(false);
 const userStore = useUserStore();
 
 onMounted(() => {
@@ -11,6 +13,25 @@ onMounted(() => {
 });
 
 const user = computed(() => userStore.profile);
+
+const temporaryUserData = ref<UserProfile>({
+  id: -1,
+  username: "",
+  email: "",
+  first_name: "",
+  last_name: "",
+  title: "",
+  mobile: "",
+  address: "",
+  social_links: {
+    linkedin: "",
+    github: "",
+    twitter: "",
+    instagram: "",
+    facebook: "",
+  },
+  avatar: "",
+});
 
 const latestJournal = {
   title: "How I approach problem solving",
@@ -27,15 +48,15 @@ const formattedDate = computed(() =>
   })
 );
 
-function handleEditProfile() {
+const handleEditProfile = () => {
   // open modal
   console.log("Edit profile clicked");
-}
+};
 
-function handleAddJournal() {
+const handleAddJournal = () => {
   // open modal
   console.log("Add new journal clicked");
-}
+};
 </script>
 
 <template>
@@ -54,7 +75,9 @@ function handleAddJournal() {
                 />
                 <div class="mt-3">
                   <h4>{{ user?.first_name }} {{ user?.last_name }}</h4>
-                  <p class="text-secondary mb-3">{{ user?.title || "Your Title Here" }}</p>
+                  <p class="text-secondary mb-3">
+                    {{ user?.title || "Your Title Here" }}
+                  </p>
                   <!-- <BaseButton class="me-1" label="Follow" :is-button="true" /> -->
                   <!-- <BaseButton label="Message" :is-button="true" /> -->
                   <LargeDangerButton label="Delete Account" :is-button="true" />
@@ -70,13 +93,17 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-linkedin pe-2 text-primary"></i>LinkedIn
                 </h6>
-                <span class="text-secondary">{{ user?.social_links?.linkedin || 'linkedin.com' }}</span>
+                <span class="text-secondary">{{
+                  user?.social_links?.linkedin || "linkedin.com"
+                }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
               >
                 <h6 class="mb-0"><i class="bi bi-github pe-2"></i>Github</h6>
-                <span class="text-secondary">{{ user?.social_links?.github || 'github.com' }}</span>
+                <span class="text-secondary">{{
+                  user?.social_links?.github || "github.com"
+                }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -84,7 +111,9 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-twitter pe-2 text-info"></i>Twitter
                 </h6>
-                <span class="text-secondary">{{ user?.social_links?.twitter || 'twitter.com' }}</span>
+                <span class="text-secondary">{{
+                  user?.social_links?.twitter || "twitter.com"
+                }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -92,7 +121,9 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-instagram pe-2 text-danger"></i>Instagram
                 </h6>
-                <span class="text-secondary">{{ user?.social_links?.instagram || 'instagram.com' }}</span>
+                <span class="text-secondary">{{
+                  user?.social_links?.instagram || "instagram.com"
+                }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -100,7 +131,9 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-facebook pe-2 text-primary"></i>Facebook
                 </h6>
-                <span class="text-secondary">{{ user?.social_links?.facebook || 'facebook.com' }}</span>
+                <span class="text-secondary">{{
+                  user?.social_links?.facebook || "facebook.com"
+                }}</span>
               </li>
             </ul>
           </div>
@@ -133,14 +166,18 @@ function handleAddJournal() {
                 <div class="col-sm-3">
                   <h6 class="mb-0">Mobile</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user?.mobile || 'Your Mobile Number Here' }}</div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user?.mobile || "Your Mobile Number Here" }}
+                </div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Address</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user?.address || 'Your Address Here' }}</div>
+                <div class="col-sm-9 text-secondary">
+                  {{ user?.address || "Your Address Here" }}
+                </div>
               </div>
               <hr />
               <div class="row">
