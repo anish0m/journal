@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
-import LargeButton from "../reusable/buttons/LargeButton.vue";
+import BaseButton from "../reusable/buttons/large/BaseButton.vue";
 import { useAuthStore } from "../../store";
 
 const router = useRouter();
@@ -19,15 +19,17 @@ const handleLogin = async () => {
     return;
   }
 
-  const success = await authStore.login(username.value, password.value);
-
+  const success = await authStore.login({
+    username: username.value,
+    password: password.value,
+  });
   if (success) {
     toast.success("Successfully logged in!");
     router.push("/profile");
   } else {
     toast.error("Invalid username or password!");
   }
-}
+};
 </script>
 
 <template>
@@ -68,7 +70,7 @@ const handleLogin = async () => {
                   <Password v-model="password" />
                 </div>
                 <div class="col-12">
-                  <LargeButton
+                  <BaseButton
                     label="Log In"
                     :is-submit="true"
                     :disabled="authStore.loading"

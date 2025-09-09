@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
-import LargeButton from "../reusable/buttons/LargeButton.vue";
+import BaseButton from "../reusable/buttons/large/BaseButton.vue";
 import { useAuthStore } from "../../store";
 import Email from "../reusable/forms/Email.vue";
 
@@ -124,14 +124,14 @@ const handleSignup = async () => {
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <LargeButton
+                    <BaseButton
                       label="Sign up"
                       :is-submit="true"
                       :disabled="authStore.loading"
                       :loading="authStore.loading"
                     >
                       {{ authStore.loading ? "Signing up..." : "Sign up" }}
-                    </LargeButton>
+                    </BaseButton>
                   </div>
                 </div>
               </div>

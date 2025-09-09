@@ -3,8 +3,8 @@ import { ref } from "vue";
 import { useJournalStore } from "../../store/journal/journal.store";
 import { useToast } from "vue-toastification";
 import TextInput from "./forms/TextInput.vue";
-import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
-import BaseSecondaryButton from "../reusable/buttons/BaseSecondaryButton.vue";
+import BaseSuccessButton from "./buttons/base/BootstrapButton.vue";
+import BaseSecondaryButton from "./buttons/base/BaseSecondaryButton.vue";
 import FieldInput from "./forms/FieldInput.vue";
 
 const props = defineProps({

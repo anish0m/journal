@@ -2,10 +2,8 @@
 import { ref, computed, onMounted, watch } from "vue";
 import { useUserStore, useJournalStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
-import BaseButton from "../reusable/buttons/BaseButton.vue";
-import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
-import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
-import BaseSecondaryButton from "../reusable/buttons/BaseSecondaryButton.vue";
+import BaseButton from "../reusable/buttons/base/BaseButton.vue";
+import BootstrapButton from "../reusable/buttons/large/BootstrapButton.vue";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Modal from "../reusable/Modal.vue";
 
@@ -41,15 +39,19 @@ const temporaryUserData = ref<UserProfile>({
 });
 
 // Watch for changes in user data and update temporary data
-watch(user, (newUser) => {
-  if (newUser) {
-    reloadTemporaryUserData();
-  }
-}, { deep: true, immediate: true });
+watch(
+  user,
+  (newUser) => {
+    if (newUser) {
+      reloadTemporaryUserData();
+    }
+  },
+  { deep: true, immediate: true }
+);
 
 // Watch editMode changes
 watch(editMode, (newMode) => {
-  console.log('Edit mode changed to:', newMode);
+  console.log("Edit mode changed to:", newMode);
   if (newMode) {
     reloadTemporaryUserData();
   }
@@ -138,7 +140,11 @@ const handleJournalModalClose = () => {
                   </p>
                   <!-- <BaseButton class="me-1" label="Follow" :is-button="true" /> -->
                   <!-- <BaseButton label="Message" :is-button="true" /> -->
-                  <LargeDangerButton label="Delete Account" :is-button="true" />
+                  <BootstrapButton
+                    label="Delete Account"
+                    type="danger"
+                    :is-button="true"
+                  />
                 </div>
               </div>
             </div>
@@ -312,14 +318,16 @@ const handleJournalModalClose = () => {
               <div class="row">
                 <div class="col-sm-12">
                   <div v-if="editMode">
-                    <BaseSecondaryButton
+                    <BootstrapButton
                       label="Cancel"
+                      type="secondary"
                       :is-button="true"
                       @click="handleCancelProfile"
                       class="px-3"
                     />
-                    <BaseSuccessButton
+                    <BootstrapButton
                       label="Save"
+                      type="success"
                       :is-button="true"
                       @click="handleSaveProfile"
                       class="px-3 ms-2"
