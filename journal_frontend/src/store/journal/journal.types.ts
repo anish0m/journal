@@ -9,7 +9,6 @@ export interface JournalEntry {
 
 export interface JournalState {
   entries: JournalEntry[];
-  latestEntry: JournalEntry | null;
   loading: boolean;
   error: string;
 }

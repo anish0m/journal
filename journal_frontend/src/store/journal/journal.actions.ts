@@ -6,10 +6,10 @@ export const actions = {
     this.error = "";
     try {
       const response = await Axios.get("/api/journal-entries/");
-      this.entries = response.data;
-      if (this.entries.length > 0) {
-        this.latestEntry = this.entries[0];
-      }
+      this.entries = response.data.sort(
+        (a: any, b: any) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
     } catch (err: any) {
       this.error = "Failed to fetch journal entries";
     } finally {
@@ -22,8 +22,7 @@ export const actions = {
     this.error = "";
     try {
       const response = await Axios.post("/api/journal-entries/", entryData);
-      this.entries.unshift(response.data); 
-      this.latestEntry = response.data;
+      this.entries.unshift(response.data);
       return true;
     } catch (err: any) {
       this.error = "Failed to create journal entry";
