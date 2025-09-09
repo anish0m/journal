@@ -20,7 +20,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(["click"]);
 
 const buttonType = computed<"button" | "submit" | "reset">(() => {
   if (props.isSubmit) return "submit";
@@ -30,8 +30,9 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 </script>
 
 <template>
-    <button class="btn btn-secondary" :type="buttonType">{{ label }}</button>
+  <button class="btn btn-secondary" :type="buttonType" @click="emit('click')">
+    {{ label }}
+  </button>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

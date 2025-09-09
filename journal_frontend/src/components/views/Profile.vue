@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useUserStore, useJournalStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
@@ -41,6 +41,21 @@ const temporaryUserData = ref<UserProfile>({
   avatar: user.value?.avatar ?? "",
 });
 
+// Watch for changes in user data and update temporary data
+watch(user, (newUser) => {
+  if (newUser) {
+    reloadTemporaryUserData();
+  }
+}, { deep: true, immediate: true });
+
+// Watch editMode changes
+watch(editMode, (newMode) => {
+  console.log('Edit mode changed to:', newMode);
+  if (newMode) {
+    reloadTemporaryUserData();
+  }
+});
+
 const reloadTemporaryUserData = () => {
   temporaryUserData.value = {
     id: user.value?.id ?? 0,
@@ -62,7 +77,9 @@ const reloadTemporaryUserData = () => {
   };
 };
 
-onMounted(() => {
+onMounted(async () => {
+  await userStore.fetchProfile();
+  await journalStore.fetchEntries();
   reloadTemporaryUserData();
 });
 

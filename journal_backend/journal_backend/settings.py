@@ -147,3 +147,12 @@ CORS_ALLOWED_ORIGINS = [
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Djoser configuration
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'accounts.serializers.UserSerializer',
+        'current_user': 'accounts.serializers.UserSerializer',
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+    },
+}

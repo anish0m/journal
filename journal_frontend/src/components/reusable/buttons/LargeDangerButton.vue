@@ -20,7 +20,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(["click"]);
 
 const buttonType = computed<"button" | "submit" | "reset">(() => {
   if (props.isSubmit) return "submit";
@@ -31,9 +31,14 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 
 <template>
   <div class="d-grid">
-    <button class="btn bsb-btn-xl btn-danger" :type="buttonType">{{ label }}</button>
+    <button
+      class="btn bsb-btn-xl btn-danger"
+      :type="buttonType"
+      @click="emit('click')"
+    >
+      {{ label }}
+    </button>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
