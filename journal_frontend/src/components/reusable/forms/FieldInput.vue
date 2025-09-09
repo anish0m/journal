@@ -4,6 +4,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  inputName: {
+    type: String,
+    required: true,
+  },
   inputId: {
     type: String,
     required: true,
@@ -33,18 +37,19 @@ const emitHandler = (event: Event) => {
 </script>
 
 <template>
-  <label :for="inputId" class="form-label">
-    {{ inputLabel }} <span class="text-danger">*</span>
-  </label>
-  <textarea
-    :id="inputId"
-    v-model="modelValue"
+  <label :for="inputId" class="form-label"
+    >{{ inputLabel }} <span class="text-danger">*</span></label
+  >
+  <input
+    type="text"
     class="form-control"
-    rows="8"
+    :name="inputName"
+    :id="inputId"
     :placeholder="inputPlaceholder"
-    :is-required="isRequired"
+    :v-model="modelValue"
+    :required="isRequired"
     @input="emitHandler"
-  ></textarea>
+  />
 </template>
 
 <style scoped>

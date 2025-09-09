@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import TextInput from "../reusable/forms/TextInput.vue";
+import TextInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
 import LargeButton from "../reusable/buttons/LargeButton.vue";
 import { useAuthStore } from "../../store";
