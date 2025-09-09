@@ -4,6 +4,7 @@ export interface UserProfile {
   email: string;
   first_name: string;
   last_name: string;
+  title?: string;
   mobile?: string;
   address?: string;
   social_links?: {
@@ -13,6 +14,7 @@ export interface UserProfile {
     instagram?: string;
     facebook?: string;
   };
+  avatar?: string;
 }
 
 export interface UserState {

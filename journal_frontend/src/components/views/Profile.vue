@@ -1,59 +1,38 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useAuthStore } from "../../store";
+import { computed, onMounted } from "vue";
+import { useUserStore } from "../../store";
 import BaseButton from "../reusable/buttons/BaseButton.vue";
 
-// fetch this from the backend
-const user = ref({
-  firstName: "Anishom",
-  lastName: "Frost",
-  fullName: "Anishom Frost",
-  username: "khi0ne",
-  email: "khi0ne@gmail.com",
-  avatar: "https://bootdey.com/img/Content/avatar/avatar3.png",
-  title: "Software Engineer",
-  mobile: "(123) 456-7890",
-  address: "California, USA",
-  social: {
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    twitter: "https://x.com",
-    instagram: "https://instagram.com",
-    facebook: "https://facebook.com",
-  },
+const userStore = useUserStore();
+
+onMounted(() => {
+  userStore.fetchProfile();
 });
 
-// Sample journal entry
-const latestJournal = ref({
+const user = computed(() => userStore.profile);
+
+const latestJournal = {
   title: "How I approach problem solving",
   date: new Date(),
   content:
     "I believe in breaking down complex problems into smaller, manageable pieces. This allows me to focus on one aspect at a time and iterate quickly. Collaboration and feedback are key to refining solutions and achieving the best results.",
-});
+};
 
-// Format date like "Sep 8, 2023"
-const formattedDate = computed(() => {
-  return latestJournal.value.date.toLocaleDateString("en-US", {
+const formattedDate = computed(() =>
+  latestJournal.date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
-  });
-});
+  })
+);
 
-// Fetch user profile when component mounts
-onMounted(() => {
-  // fetch user data here
-  // For now, dummy data
-});
-
-// Handlers for buttons
 function handleEditProfile() {
-  // Navigate to edit profile page or open modal
+  // open modal
   console.log("Edit profile clicked");
 }
 
 function handleAddJournal() {
-  // Navigate to add journal page or open modal
+  // open modal
   console.log("Add new journal clicked");
 }
 </script>
@@ -67,14 +46,14 @@ function handleAddJournal() {
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
                 <img
-                  :src="user.avatar"
+                  :src="user?.avatar || '/src/assets/default.png'"
                   alt="Profile"
                   class="rounded-circle"
                   width="150"
                 />
                 <div class="mt-3">
-                  <h4>{{ user.fullName }}</h4>
-                  <p class="text-secondary mb-3">{{ user.title }}</p>
+                  <h4>{{ user?.first_name }} {{ user?.last_name }}</h4>
+                  <p class="text-secondary mb-3">{{ user?.title }}</p>
                   <BaseButton class="me-1" label="Follow" :is-button="true" />
                   <BaseButton label="Message" :is-button="true" />
                 </div>
@@ -89,13 +68,13 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-linkedin pe-2 text-primary"></i>LinkedIn
                 </h6>
-                <span class="text-secondary">{{ user.social.linkedin }}</span>
+                <span class="text-secondary">{{ user?.social_links?.linkedin }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
               >
                 <h6 class="mb-0"><i class="bi bi-github pe-2"></i>Github</h6>
-                <span class="text-secondary">{{ user.social.github }}</span>
+                <span class="text-secondary">{{ user?.social_links?.github }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -103,7 +82,7 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-twitter pe-2 text-info"></i>Twitter
                 </h6>
-                <span class="text-secondary">{{ user.social.twitter }}</span>
+                <span class="text-secondary">{{ user?.social_links?.twitter }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -111,7 +90,7 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-instagram pe-2 text-danger"></i>Instagram
                 </h6>
-                <span class="text-secondary">{{ user.social.instagram }}</span>
+                <span class="text-secondary">{{ user?.social_links?.instagram }}</span>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -119,7 +98,7 @@ function handleAddJournal() {
                 <h6 class="mb-0">
                   <i class="bi bi-facebook pe-2 text-primary"></i>Facebook
                 </h6>
-                <span class="text-secondary">{{ user.social.facebook }}</span>
+                <span class="text-secondary">{{ user?.social_links?.facebook }}</span>
               </li>
             </ul>
           </div>
@@ -131,35 +110,35 @@ function handleAddJournal() {
                 <div class="col-sm-3">
                   <h6 class="mb-0">Full Name</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.fullName }}</div>
+                <div class="col-sm-9 text-secondary">{{ user?.first_name }} {{ user?.last_name }}</div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Username</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.username }}</div>
+                <div class="col-sm-9 text-secondary">{{ user?.username }}</div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Email</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.email }}</div>
+                <div class="col-sm-9 text-secondary">{{ user?.email }}</div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Mobile</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.mobile }}</div>
+                <div class="col-sm-9 text-secondary">{{ user?.mobile }}</div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Address</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user.address }}</div>
+                <div class="col-sm-9 text-secondary">{{ user?.address }}</div>
               </div>
               <hr />
               <div class="row">
