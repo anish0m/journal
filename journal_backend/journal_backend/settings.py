@@ -156,3 +156,8 @@ DJOSER = {
         'user_create': 'accounts.serializers.UserCreateSerializer',
     },
 }
+
+# Admin site customization
+ADMIN_SITE_HEADER = "Journal App Admin"
+ADMIN_SITE_TITLE = "Journal Admin Portal"
+ADMIN_INDEX_TITLE = "Welcome to Journal Administration"
