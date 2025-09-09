@@ -145,21 +145,70 @@ const handleAddJournal = () => {
                 <div class="col-sm-3">
                   <h6 class="mb-0">Full Name</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user?.first_name }} {{ user?.last_name }}</div>
+                <div class="col-sm-9 text-secondary">
+                  <template v-if="editMode">
+                    <TextInput
+                      input-label="First Name"
+                      input-name="firstName"
+                      input-id="firstName"
+                      input-placeholder="First Name"
+                      v-model="temporaryUserData.first_name"
+                      :is-required="true"
+                    />
+                    <TextInput
+                      input-label="Last Name"
+                      input-name="lastName"
+                      input-id="lastName"
+                      input-placeholder="Last Name"
+                      v-model="temporaryUserData.last_name"
+                      :is-required="true"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ user?.first_name }} {{ user?.last_name }}
+                  </template>
+                </div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Username</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user?.username }}</div>
+                <div class="col-sm-9 text-secondary">
+                  <template v-if="editMode">
+                    <TextInput
+                      input-label="Username"
+                      input-name="username"
+                      input-id="username"
+                      input-placeholder="Username"
+                      v-model="temporaryUserData.username"
+                      :is-required="true"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ user?.username }}
+                  </template>
+                </div>
               </div>
               <hr />
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Email</h6>
                 </div>
-                <div class="col-sm-9 text-secondary">{{ user?.email }}</div>
+                <div class="col-sm-9 text-secondary">
+                  <template v-if="editMode">
+                    <TextInput
+                      input-label="Email"
+                      input-name="email"
+                      input-id="email"
+                      input-placeholder="Email"
+                      v-model="temporaryUserData.email"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ user?.email || "Your Email Here" }}
+                  </template>
+                </div>
               </div>
               <hr />
               <div class="row">
@@ -167,7 +216,18 @@ const handleAddJournal = () => {
                   <h6 class="mb-0">Mobile</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{ user?.mobile || "Your Mobile Number Here" }}
+                  <template v-if="editMode">
+                    <TextInput
+                      input-label="Mobile"
+                      input-name="mobile"
+                      input-id="mobile"
+                      input-placeholder="Mobile"
+                      v-model="temporaryUserData.mobile"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ user?.mobile || "Your Mobile Number Here" }}
+                  </template>
                 </div>
               </div>
               <hr />
@@ -176,7 +236,18 @@ const handleAddJournal = () => {
                   <h6 class="mb-0">Address</h6>
                 </div>
                 <div class="col-sm-9 text-secondary">
-                  {{ user?.address || "Your Address Here" }}
+                  <template v-if="editMode">
+                    <TextInput
+                      input-label="Address"
+                      input-name="address"
+                      input-id="address"
+                      input-placeholder="Address"
+                      v-model="temporaryUserData.address"
+                    />
+                  </template>
+                  <template v-else>
+                    {{ user?.address || "Your Address Here" }}
+                  </template>
                 </div>
               </div>
               <hr />
