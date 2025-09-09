@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'accounts',
+    'journal', 
 ]
 
 MIDDLEWARE = [
