@@ -3,8 +3,7 @@ import { ref } from "vue";
 import { useJournalStore } from "../../store/journal/journal.store";
 import { useToast } from "vue-toastification";
 import TextInput from "./forms/TextInput.vue";
-import BaseSuccessButton from "./buttons/base/BootstrapButton.vue";
-import BaseSecondaryButton from "./buttons/base/BaseSecondaryButton.vue";
+import BootstrapButton from "./buttons/base/BootstrapButton.vue";
 import FieldInput from "./forms/FieldInput.vue";
 
 const props = defineProps({
@@ -109,14 +108,16 @@ const handleCancel = () => {
           </div>
         </div>
         <div class="modal-footer">
-          <BaseSecondaryButton
+          <BootstrapButton
             label="Cancel"
+            type="secondary"
             :is-button="true"
             @click="handleCancel"
             :disabled="journalStore.loading"
           />
-          <BaseSuccessButton
+          <BootstrapButton
             label="Save Entry"
+            type="success"
             :is-button="true"
             @click="handleSave"
             :disabled="journalStore.loading"
