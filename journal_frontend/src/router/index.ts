@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { setupRouterGuards } from './guard'
+import { useAuthStore } from '../store';
 
 const routes = [
   {
     path: '/',
-    redirect: () => {
-      // Replace with actual auth check later
-      const isAuthenticated = false // placeholder
+    redirect: (to: any) => {
+      const authStore = useAuthStore();
+      const isAuthenticated = !!authStore.token && authStore.token.length > 0;
       return isAuthenticated ? '/profile' : '/login'
     }
   },

@@ -2,13 +2,13 @@ import { Axios } from "../../service/axios";
 import type { SignupPayload } from "./auth.types";
 
 export const actions = {
-  async login(this: any, username: string, password: string) {
+  async login(this: any, credentials: { username: string; password: string }) {
     this.loading = true;
     this.error = "";
     try {
       const response = await Axios.post("/auth/token/login/", {
-        username,
-        password,
+        username: credentials.username,
+        password: credentials.password,
       });
       this.token = response.data.auth_token;
       localStorage.setItem("auth_token", this.token);
