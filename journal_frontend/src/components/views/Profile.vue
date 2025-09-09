@@ -38,7 +38,6 @@ const temporaryUserData = ref<UserProfile>({
     instagram: "",
     facebook: "",
   },
-  avatar: user.value?.avatar ?? "",
 });
 
 // Watch for changes in user data and update temporary data
@@ -73,7 +72,6 @@ const reloadTemporaryUserData = () => {
       instagram: user.value?.social_links?.instagram ?? "",
       facebook: user.value?.social_links?.facebook ?? "",
     },
-    avatar: user.value?.avatar ?? "",
   };
 };
 
@@ -128,7 +126,7 @@ const handleJournalModalClose = () => {
             <div class="card-body">
               <div class="d-flex flex-column align-items-center text-center">
                 <img
-                  :src="user?.avatar || '/src/assets/default.png'"
+                  src="../../assets/default.png"
                   alt="Profile"
                   class="rounded-circle"
                   width="150"

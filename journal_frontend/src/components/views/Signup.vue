@@ -41,10 +41,23 @@ const handleSignup = async () => {
   });
 
   if (success) {
-    toast.success("Account created successfully!");
-    router.push("/login");
+    if (success) {
+      // Auto-login after successful signup
+      const loginSuccess = await authStore.login({
+        username: username.value,
+        password: password.value,
+      });
+
+      if (loginSuccess) {
+        toast.success("Account created successfully!");
+        router.push("/profile"); // Go directly to profile
+      } else {
+        toast.success("Account created! Please log in.");
+        router.push("/login");
+      }
+    }
   }
-}
+};
 </script>
 
 <template>

@@ -14,7 +14,6 @@ export interface UserProfile {
     instagram: string;
     facebook: string;
   };
-  avatar: string;
 }
 
 export interface UserState {
