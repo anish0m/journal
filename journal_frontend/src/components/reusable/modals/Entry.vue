@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useJournalStore } from "../../store/journal/journal.store";
+import { useJournalStore } from "../../../store/journal/journal.store";
 import { useToast } from "vue-toastification";
-import TextInput from "./forms/TextInput.vue";
-import BootstrapButton from "./buttons/base/BootstrapButton.vue";
-import FieldInput from "./forms/FieldInput.vue";
+import TextInput from "../forms/TextInput.vue";
+import BootstrapButton from "../buttons/base/BootstrapButton.vue";
+import FieldInput from "../forms/FieldInput.vue";
 
 const props = defineProps({
   show: {

@@ -54,4 +54,23 @@ export const actions = {
     this.loading = false;
     this.error = "";
   },
+  async deleteAccount(this: any, password: string) {
+    this.loading = true;
+    this.error = "";
+    try {
+      // Djoser endpoint for deleting user account requires current_password
+      await Axios.delete("/auth/users/me/", {
+        data: {
+          current_password: password,
+        },
+      });
+      return true;
+    } catch (err: any) {
+      this.error = err.response?.data?.current_password?.[0] || "Failed to delete account";
+      console.error("Account deletion error:", err);
+      return false;
+    } finally {
+      this.loading = false;
+    }
+  },
 };

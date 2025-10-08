@@ -7,10 +7,12 @@ import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/base/BaseButton.vue";
 import BootstrapButton from "../reusable/buttons/base/BootstrapButton.vue";
 import FieldInput from "../reusable/forms/FieldInput.vue";
-import Modal from "../reusable/Modal.vue";
+import Entry from "../reusable/modals/Entry.vue";
+import Confirm from "../reusable/modals/Confirm.vue";
 
 const editMode = ref(false);
 const showModal = ref(false);
+const showDeleteModal = ref(false);
 
 const router = useRouter();
 const toast = useToast();
@@ -130,6 +132,31 @@ const handleLogout = async () => {
   toast.success("Successfully logged out!");
   router.push("/login");
 };
+
+const handleDeleteAccount = () => {
+  showDeleteModal.value = true;
+  console.log("Delete account button clicked");
+};
+
+const handleDeleteConfirm = async (password: string) => {
+  const success = await userStore.deleteAccount(password);
+  
+  if (success) {
+    toast.success("Account deleted successfully!");
+    // Clear auth and profile data
+    await authStore.logout();
+    userStore.clearProfile();
+    journalStore.clearEntries();
+    showDeleteModal.value = false;
+    router.push("/login");
+  } else {
+    toast.error(userStore.error || "Failed to delete account. Please check your password.");
+  }
+};
+
+const handleDeleteModalClose = () => {
+  showDeleteModal.value = false;
+};
 </script>
 
 <template>
@@ -164,6 +191,7 @@ const handleLogout = async () => {
                     label="Delete Account"
                     type="danger"
                     :is-button="true"
+                    @click="handleDeleteAccount"
                   />
                 </div>
               </div>
@@ -433,12 +461,20 @@ const handleLogout = async () => {
       </div>
     </div>
   </div>
-  <Modal
+  <Entry
     :show="showModal"
     :title="'New Journal Entry'"
     :content="'Write your thoughts...'"
     @close="handleJournalModalClose"
     @success="handleJournalSuccess"
+  />
+  <Confirm
+    :show="showDeleteModal"
+    :title="'Delete Account'"
+    :message="'Are you sure you want to delete your account? This will permanently remove all your data including journal entries.'"
+    :loading="userStore.loading"
+    @close="handleDeleteModalClose"
+    @confirm="handleDeleteConfirm"
   />
 </template>
 
