@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
-import LargeButton from "../reusable/buttons/LargeButton.vue";
+import BaseButton from "../reusable/buttons/large/BaseButton.vue";
 import { useAuthStore } from "../../store";
+import { useRouter } from "vue-router";
 
-const router = useRouter();
 const authStore = useAuthStore();
 const toast = useToast();
+const router = useRouter();
 
 const username = ref("");
 const password = ref("");
@@ -19,33 +19,36 @@ const handleLogin = async () => {
     return;
   }
 
-  const success = await authStore.login(username.value, password.value);
-
+  const success = await authStore.login({
+    username: username.value,
+    password: password.value,
+  });
+  
   if (success) {
     toast.success("Successfully logged in!");
-    router.push("/profile");
+    await router.push(`/profile/${username.value}`)
   } else {
     toast.error("Invalid username or password!");
   }
-}
+};
 </script>
 
 <template>
   <div class="container login-section">
-    <div class="login-card">
+    <div class="login-card rounded">
       <div class="row g-0">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-start">
           <img
-            class="login-img"
+            class="login-img w-100 object-fit-cover"
             loading="lazy"
             src="../../assets/card.jpg"
             alt="Journal"
           />
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 d-flex flex-column justify-content-start">
           <div class="login-card-body">
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 d-flex flex-column justify-content-start">
                 <div class="mb-5">
                   <h2>Log in</h2>
                   <h3 class="fs-6 fw-normal m-0">Pick up where you left off</h3>
@@ -54,7 +57,7 @@ const handleLogin = async () => {
             </div>
             <form @submit.prevent="handleLogin">
               <div class="row gy-3 gy-md-4 overflow-hidden">
-                <div class="col-12">
+                <div class="col-12 d-flex flex-column justify-content-start">
                   <FieldInput
                     input-label="Username"
                     input-name="username"
@@ -64,11 +67,11 @@ const handleLogin = async () => {
                     :is-required="true"
                   />
                 </div>
-                <div class="col-12">
+                <div class="col-12 d-flex flex-column justify-content-start">
                   <Password v-model="password" />
                 </div>
-                <div class="col-12">
-                  <LargeButton
+                <div class="col-12 d-flex flex-column justify-content-start">
+                  <BaseButton
                     label="Log In"
                     :is-submit="true"
                     :disabled="authStore.loading"
@@ -78,11 +81,11 @@ const handleLogin = async () => {
               </div>
             </form>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 d-flex flex-column justify-content-start">
                 <hr class="mt-5 mb-4 border-secondary-subtle" />
                 <p class="m-0 text-secondary text-center">
                   Don't have an account yet?
-                  <router-link to="/signup" class="link-text"
+                  <router-link to="/signup" class="link-text text-decoration-none"
                     >Sign up</router-link
                   >
                 </p>
@@ -101,56 +104,51 @@ const handleLogin = async () => {
   color: var(--indigo-mist);
   margin-top: 4rem;
 }
+
 @media (min-width: 768px) {
   .login-section {
     padding: 2rem;
   }
 }
+
 @media (min-width: 1200px) {
   .login-section {
-    padding: 3rem;
-  }
-}
-.login-card {
-  box-shadow: 0 2px 8px rgba(0, 0, 20, 0.05);
-  border-radius: 0.5rem;
-  background: var(--white);
-  border: 0.25px solid var(--lavender-grey);
-}
-.login-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5rem 0 0 0.5rem;
-}
-.login-card-body {
-  padding: 1rem;
-}
-@media (min-width: 768px) {
-  .login-card-body {
-    padding: 2rem;
-  }
-}
-@media (min-width: 1200px) {
-  .login-card-body {
     padding: 3rem;
   }
 }
 
-form .col-12,
-form .col-md-6 {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+.login-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 20, 0.05);
+  background: var(--white);
+  border: 0.25px solid var(--lavender-grey);
+}
+
+.login-img {
+  height: 100%;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.login-card-body {
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .login-card-body {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .login-card-body {
+    padding: 3rem;
+  }
 }
 
 .login-card-body h3 {
   color: var(--mystic-violet);
-  font-weight: lighter;
 }
 
 .link-text {
-  text-decoration: none;
   color: var(--deep-lavender);
 }
 

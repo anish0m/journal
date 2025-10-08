@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
-import { useUserStore, useJournalStore } from "../../store";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import { useUserStore, useJournalStore, useAuthStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
-import BaseButton from "../reusable/buttons/BaseButton.vue";
-import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
-import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
-import BaseSecondaryButton from "../reusable/buttons/BaseSecondaryButton.vue";
+import BaseButton from "../reusable/buttons/base/BaseButton.vue";
+import BootstrapButton from "../reusable/buttons/base/BootstrapButton.vue";
 import FieldInput from "../reusable/forms/FieldInput.vue";
-import Modal from "../reusable/Modal.vue";
+import Entry from "../reusable/modals/Entry.vue";
+import Confirm from "../reusable/modals/Confirm.vue";
 
 const editMode = ref(false);
 const showModal = ref(false);
+const showDeleteModal = ref(false);
 
+const router = useRouter();
+const toast = useToast();
 const userStore = useUserStore();
 const journalStore = useJournalStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
   userStore.fetchProfile();
@@ -41,15 +46,19 @@ const temporaryUserData = ref<UserProfile>({
 });
 
 // Watch for changes in user data and update temporary data
-watch(user, (newUser) => {
-  if (newUser) {
-    reloadTemporaryUserData();
-  }
-}, { deep: true, immediate: true });
+watch(
+  user,
+  (newUser) => {
+    if (newUser) {
+      reloadTemporaryUserData();
+    }
+  },
+  { deep: true, immediate: true }
+);
 
 // Watch editMode changes
 watch(editMode, (newMode) => {
-  console.log('Edit mode changed to:', newMode);
+  console.log("Edit mode changed to:", newMode);
   if (newMode) {
     reloadTemporaryUserData();
   }
@@ -115,15 +124,48 @@ const handleJournalSuccess = () => {
 const handleJournalModalClose = () => {
   showModal.value = false;
 };
+
+const handleLogout = async () => {
+  await authStore.logout();
+  userStore.clearProfile();
+  journalStore.clearEntries();
+  toast.success("Successfully logged out!");
+  router.push("/login");
+};
+
+const handleDeleteAccount = () => {
+  showDeleteModal.value = true;
+  console.log("Delete account button clicked");
+};
+
+const handleDeleteConfirm = async (password: string) => {
+  const success = await userStore.deleteAccount(password);
+  
+  if (success) {
+    toast.success("Account deleted successfully!");
+    // Clear auth and profile data
+    await authStore.logout();
+    userStore.clearProfile();
+    journalStore.clearEntries();
+    showDeleteModal.value = false;
+    router.push("/login");
+  } else {
+    toast.error(userStore.error || "Failed to delete account. Please check your password.");
+  }
+};
+
+const handleDeleteModalClose = () => {
+  showDeleteModal.value = false;
+};
 </script>
 
 <template>
-  <div class="container">
-    <div class="main-body">
+  <div class="container text-start bg-white">
+    <div class="p-3">
       <div class="row gutters-sm">
         <div class="col-md-4 mb-3">
-          <div class="card">
-            <div class="card-body">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded">
+            <div class="card-body flex-fill p-3">
               <div class="d-flex flex-column align-items-center text-center">
                 <img
                   src="../../assets/default.png"
@@ -138,12 +180,24 @@ const handleJournalModalClose = () => {
                   </p>
                   <!-- <BaseButton class="me-1" label="Follow" :is-button="true" /> -->
                   <!-- <BaseButton label="Message" :is-button="true" /> -->
-                  <LargeDangerButton label="Delete Account" :is-button="true" />
+                  <BootstrapButton
+                    label="Log Out"
+                    type="danger"
+                    :is-button="true"
+                    class="me-2"
+                    @click="handleLogout"
+                  />
+                  <BootstrapButton
+                    label="Delete Account"
+                    type="danger"
+                    :is-button="true"
+                    @click="handleDeleteAccount"
+                  />
                 </div>
               </div>
             </div>
           </div>
-          <div class="card mt-3">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded mt-3">
             <ul class="list-group list-group-flush">
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -197,8 +251,8 @@ const handleJournalModalClose = () => {
           </div>
         </div>
         <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card-body">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded mb-3">
+            <div class="card-body flex-fill p-3">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Full Name</h6>
@@ -312,14 +366,16 @@ const handleJournalModalClose = () => {
               <div class="row">
                 <div class="col-sm-12">
                   <div v-if="editMode">
-                    <BaseSecondaryButton
+                    <BootstrapButton
                       label="Cancel"
+                      type="secondary"
                       :is-button="true"
                       @click="handleCancelProfile"
                       class="px-3"
                     />
-                    <BaseSuccessButton
+                    <BootstrapButton
                       label="Save"
+                      type="success"
                       :is-button="true"
                       @click="handleSaveProfile"
                       class="px-3 ms-2"
@@ -340,9 +396,9 @@ const handleJournalModalClose = () => {
 
           <div class="row gutters-sm">
             <div class="col-12 mb-3">
-              <div class="card h-100">
+              <div class="card position-relative d-flex flex-column text-break bg-white border rounded h-100">
                 <div
-                  class="card-header d-flex justify-content-between align-items-center m-2"
+                  class="bg-white border-0 d-flex justify-content-between align-items-center m-3 px-1"
                 >
                   <h3 class="mt-1 mb-0">My latest thoughts...</h3>
                   <BaseButton
@@ -352,15 +408,15 @@ const handleJournalModalClose = () => {
                     class="px-3"
                   />
                 </div>
-                <div class="card-body">
+                <div class="card-body flex-fill p-3">
                   <div v-if="userJournals.length > 0">
                     <!-- Loop through all journals -->
                     <div
                       v-for="journal in userJournals"
                       :key="journal.id"
-                      class="card h-100 mb-3"
+                      class="card position-relative d-flex flex-column text-break bg-white border rounded h-100 mb-3"
                     >
-                      <div class="card-body">
+                      <div class="card-body flex-fill p-3">
                         <h4 class="card-title mb-2 mx-1 text-muted">
                           {{ journal.title }}
                         </h4>
@@ -405,49 +461,37 @@ const handleJournalModalClose = () => {
       </div>
     </div>
   </div>
-  <Modal
+  <Entry
     :show="showModal"
     :title="'New Journal Entry'"
     :content="'Write your thoughts...'"
     @close="handleJournalModalClose"
     @success="handleJournalSuccess"
   />
+  <Confirm
+    :show="showDeleteModal"
+    :title="'Delete Account'"
+    :message="'Are you sure you want to delete your account? This will permanently remove all your data including journal entries.'"
+    :loading="userStore.loading"
+    @close="handleDeleteModalClose"
+    @confirm="handleDeleteConfirm"
+  />
 </template>
 
 <style scoped>
 body {
   margin-top: 20px;
-  text-align: left;
-  background-color: #fff;
 }
-.main-body {
-  padding: 15px;
-}
+
 .card {
+  min-width: 0;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 20, 0.125);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 20, 0.1), 0 1px 2px 0 rgba(0, 0, 20, 0.06);
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 20, 0.125);
-  border-radius: 0.25rem;
-}
-
-.card-header {
-  background-color: #fff;
-  border-bottom: 0px solid rgba(0, 0, 20, 0.125);
-}
-
 .card-body {
-  flex: 1 1 auto;
   min-height: 1px;
-  padding: 1rem;
 }
 
 .card-text {
@@ -465,6 +509,7 @@ body {
   padding-right: 8px;
   padding-left: 8px;
 }
+
 .mb-3,
 .my-3 {
   margin-bottom: 1rem !important;
@@ -473,9 +518,11 @@ body {
 .bg-gray-300 {
   background-color: #fff;
 }
+
 .h-100 {
   height: 100% !important;
 }
+
 .shadow-none {
   box-shadow: none !important;
 }

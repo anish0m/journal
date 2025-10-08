@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { setupRouterGuards } from './guard'
-import { useAuthStore } from '../store';
 
 const routes = [
   {
     path: '/',
-    redirect: (to: any) => {
-      const authStore = useAuthStore();
-      const isAuthenticated = !!authStore.token && authStore.token.length > 0;
-      return isAuthenticated ? '/profile' : '/login'
+    redirect: () => {
+      return '/login'
     }
   },
   {
@@ -22,11 +19,11 @@ const routes = [
     component: () => import('../components/views/Signup.vue')
   },
   {
-    path: '/profile',
+    path: '/profile/:username',
     name: 'Profile',
     component: () => import('../components/views/Profile.vue'),
     meta: { requiresAuth: true }
-  }
+  },
 ]
 
 const router = createRouter({

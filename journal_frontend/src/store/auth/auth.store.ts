@@ -8,7 +8,7 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({ ...state }),
   getters,
   actions: {
-    // Add initialization method
+    // This method should exist
     initializeAuth(this: any) {
       const token = localStorage.getItem("auth_token");
       if (token) {
@@ -16,7 +16,7 @@ export const useAuthStore = defineStore("auth", {
         Axios.defaults.headers.common["Authorization"] = `Token ${token}`;
       }
     },
-    // Spread existing actions
+    // Spread other actions
     ...actions,
   },
 });

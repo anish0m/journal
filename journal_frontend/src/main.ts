@@ -3,12 +3,12 @@ import "./style.css";
 import App from "./App.vue";
 import router from "./router";
 import { createPinia } from "pinia";
-import { useAuthStore } from "./store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import { useAuthStore } from "./store";
 
 const app = createApp(App);
 

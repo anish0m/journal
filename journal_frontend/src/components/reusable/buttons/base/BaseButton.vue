@@ -30,9 +30,20 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 </script>
 
 <template>
-  <button class="btn btn-success" :type="buttonType" @click="emit('click')">
+  <button class="btn base-btn rounded-2 p-2 border-0" :type="buttonType" @click="emit('click')">
     {{ label }}
   </button>
 </template>
 
-<style scoped></style>
+<style scoped>
+.base-btn {
+  background-color: var(--light-lavender-violet);
+  color: var(--white);
+}
+
+.base-btn:hover {
+  background-color: var(--indigo-mist);
+  color: var(--white);
+  font-weight: bold !important;
+}
+</style>
