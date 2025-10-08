@@ -46,4 +46,9 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.btn:hover {
+  color: var(--white);
+  font-weight: bold !important;
+}
+</style>

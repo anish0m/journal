@@ -160,12 +160,12 @@ const handleDeleteModalClose = () => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="main-body">
+  <div class="container text-start bg-white">
+    <div class="p-3">
       <div class="row gutters-sm">
         <div class="col-md-4 mb-3">
-          <div class="card">
-            <div class="card-body">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded">
+            <div class="card-body flex-fill p-3">
               <div class="d-flex flex-column align-items-center text-center">
                 <img
                   src="../../assets/default.png"
@@ -197,7 +197,7 @@ const handleDeleteModalClose = () => {
               </div>
             </div>
           </div>
-          <div class="card mt-3">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded mt-3">
             <ul class="list-group list-group-flush">
               <li
                 class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -251,8 +251,8 @@ const handleDeleteModalClose = () => {
           </div>
         </div>
         <div class="col-md-8">
-          <div class="card mb-3">
-            <div class="card-body">
+          <div class="card position-relative d-flex flex-column text-break bg-white border rounded mb-3">
+            <div class="card-body flex-fill p-3">
               <div class="row">
                 <div class="col-sm-3">
                   <h6 class="mb-0">Full Name</h6>
@@ -396,9 +396,9 @@ const handleDeleteModalClose = () => {
 
           <div class="row gutters-sm">
             <div class="col-12 mb-3">
-              <div class="card h-100">
+              <div class="card position-relative d-flex flex-column text-break bg-white border rounded h-100">
                 <div
-                  class="card-header d-flex justify-content-between align-items-center m-2"
+                  class="bg-white border-0 d-flex justify-content-between align-items-center m-3 px-1"
                 >
                   <h3 class="mt-1 mb-0">My latest thoughts...</h3>
                   <BaseButton
@@ -408,15 +408,15 @@ const handleDeleteModalClose = () => {
                     class="px-3"
                   />
                 </div>
-                <div class="card-body">
+                <div class="card-body flex-fill p-3">
                   <div v-if="userJournals.length > 0">
                     <!-- Loop through all journals -->
                     <div
                       v-for="journal in userJournals"
                       :key="journal.id"
-                      class="card h-100 mb-3"
+                      class="card position-relative d-flex flex-column text-break bg-white border rounded h-100 mb-3"
                     >
-                      <div class="card-body">
+                      <div class="card-body flex-fill p-3">
                         <h4 class="card-title mb-2 mx-1 text-muted">
                           {{ journal.title }}
                         </h4>
@@ -481,37 +481,17 @@ const handleDeleteModalClose = () => {
 <style scoped>
 body {
   margin-top: 20px;
-  text-align: left;
-  background-color: #fff;
 }
-.main-body {
-  padding: 15px;
-}
+
 .card {
+  min-width: 0;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 20, 0.125);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 20, 0.1), 0 1px 2px 0 rgba(0, 0, 20, 0.06);
 }
 
-.card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 20, 0.125);
-  border-radius: 0.25rem;
-}
-
-.card-header {
-  background-color: #fff;
-  border-bottom: 0px solid rgba(0, 0, 20, 0.125);
-}
-
 .card-body {
-  flex: 1 1 auto;
   min-height: 1px;
-  padding: 1rem;
 }
 
 .card-text {
@@ -529,6 +509,7 @@ body {
   padding-right: 8px;
   padding-left: 8px;
 }
+
 .mb-3,
 .my-3 {
   margin-bottom: 1rem !important;
@@ -537,9 +518,11 @@ body {
 .bg-gray-300 {
   background-color: #fff;
 }
+
 .h-100 {
   height: 100% !important;
 }
+
 .shadow-none {
   box-shadow: none !important;
 }

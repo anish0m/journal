@@ -16,12 +16,12 @@ const emitHandler = (event: Event) => {
 
 <template>
   <div>
-    <label for="password" class="form-label"
+    <label for="password" class="form-label align-self-start mb-1"
       >Password <span class="text-danger">*</span></label
     >
     <input
       type="password"
-      class="form-control"
+      class="form-control opacity-100"
       name="password"
       id="password"
       placeholder="Password"
@@ -34,14 +34,11 @@ const emitHandler = (event: Event) => {
 
 <style scoped>
 .form-label {
-  align-self: flex-start;
-  margin-bottom: 0.25rem;
   padding-left: 7px;
   color: var(--indigo-mist);
 }
 
 input::placeholder {
   color: var(--lavender-grey);
-  opacity: 1;
 }
 </style>

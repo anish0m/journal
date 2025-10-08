@@ -32,7 +32,7 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 <template>
   <div class="d-grid">
     <button
-      class="btn bsb-btn-xl base-lg-btn"
+      class="btn bsb-btn-xl base-lg-btn border-0 rounded-2 py-3 px-4"
       :type="buttonType"
       @click="emit('click')"
     >
@@ -44,15 +44,12 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 <style scoped>
 .base-lg-btn {
   background-color: var(--light-lavender-violet);
-  border-radius: 7px;
-  padding: 0.75rem 2rem;
-  border: none;
   color: var(--white);
 }
 
 .base-lg-btn:hover {
   background-color: var(--indigo-mist);
   color: var(--white);
-  font-weight: bold;
+  font-weight: bold !important;
 }
 </style>

@@ -37,12 +37,12 @@ const emitHandler = (event: Event) => {
 </script>
 
 <template>
-  <label :for="inputId" class="form-label"
+  <label :for="inputId" class="form-label align-self-start mb-1"
     >{{ inputLabel }} <span class="text-danger">*</span></label
   >
   <input
     type="text"
-    class="form-control"
+    class="form-control opacity-100"
     :name="inputName"
     :id="inputId"
     :placeholder="inputPlaceholder"
@@ -54,14 +54,11 @@ const emitHandler = (event: Event) => {
 
 <style scoped>
 .form-label {
-  align-self: flex-start;
-  margin-bottom: 0.25rem;
   padding-left: 7px;
   color: var(--indigo-mist);
 }
 
 input::placeholder {
   color: var(--lavender-grey);
-  opacity: 1;
 }
 </style>

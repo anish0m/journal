@@ -17,8 +17,8 @@ const userName = computed(() => user.value?.username || "");
     >
       <!-- Left: Logo + Brand -->
       <div class="d-flex align-items-center">
-        <img src="../../assets/logo.png" alt="Logo" class="logo-img me-2" />
-        <router-link class="navbar-brand brand-text" to="/">
+        <img src="../../assets/logo.png" alt="Logo" class="logo-img me-2 object-fit-contain" />
+        <router-link class="navbar-brand fw-semibold text-decoration-none brand-text fw-bold" to="/">
           journal
         </router-link>
       </div>
@@ -27,18 +27,18 @@ const userName = computed(() => user.value?.username || "");
         <router-link
           v-if="isAuthenticated && userName"
           :to="`/profile/${userName}`"
-          class="profile-link d-flex align-items-center"
+          class="profile-link text-decoration-none fw-bold d-flex align-items-center"
         >
           <span class="me-2">{{ userName }}</span>
-          <i class="bi bi-person-circle profile-icon"></i>
+          <i class="bi bi-person-circle profile-icon align-middle"></i>
         </router-link>
         <router-link
           v-else
           to="/login"
-          class="profile-link d-flex align-items-center"
+          class="profile-link text-decoration-none fw-bold d-flex align-items-center"
         >
           <span class="profile-name">Login</span>
-          <i class="bi bi-person-circle profile-icon"></i>
+          <i class="bi bi-person-circle profile-icon align-middle"></i>
         </router-link>
       </div>
     </div>
@@ -49,47 +49,45 @@ const userName = computed(() => user.value?.username || "");
 .custom-navbar {
   background: var(--light-lavender-violet);
 }
+
 .logo-img {
   height: 3rem;
   width: 3rem;
-  object-fit: contain;
 }
+
 .navbar-brand {
   color: var(--white);
   font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
 }
+
 .brand-text {
   color: var(--white);
   font-size: 1.5rem;
-  font-weight: bolder;
 }
+
 .brand-text:hover,
 .brand-text:focus {
   color: var(--white);
 }
+
 .profile-name {
   margin-right: 0.75rem;
   margin-top: 0.15rem;
 }
+
 .profile-link {
   color: var(--white);
-  text-decoration: none;
   font-size: 1rem;
-  font-weight: bold;
   transition: color 0.2s;
-  display: flex;
-  align-items: center;
 }
+
 .profile-link:hover,
 .profile-link:focus {
   color: var(--deep-midnight-blue);
 }
+
 .profile-icon {
   font-size: 1.25rem;
-  vertical-align: middle;
   transition: color 0.2s;
-  /* Remove color property here */
 }
 </style>
