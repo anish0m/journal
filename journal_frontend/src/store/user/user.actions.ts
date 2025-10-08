@@ -8,7 +8,7 @@ export const actions = {
       // Get user data
       const userResponse = await Axios.get("/auth/users/me/");
       // Get profile data
-      const profileResponse = await Axios.get("/api/accounts/profile/");
+      const profileResponse = await Axios.get("/api/profile/");
 
       // Combine both responses
       this.profile = {
@@ -34,7 +34,7 @@ export const actions = {
       });
 
       // Update profile data (title, mobile, address, social_links)
-      await Axios.patch("/api/accounts/profile/", {
+      await Axios.patch("/api/profile/", {
         title: payload.title,
         mobile: payload.mobile,
         address: payload.address,

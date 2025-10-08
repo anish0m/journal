@@ -41,20 +41,18 @@ const handleSignup = async () => {
   });
 
   if (success) {
-    if (success) {
-      // Auto-login after successful signup
-      const loginSuccess = await authStore.login({
-        username: username.value,
-        password: password.value,
-      });
+    // Auto-login after successful signup
+    const loginSuccess = await authStore.login({
+      username: username.value,
+      password: password.value,
+    });
 
-      if (loginSuccess) {
-        toast.success("Account created successfully!");
-        router.push("/profile"); // Go directly to profile
-      } else {
-        toast.success("Account created! Please log in.");
-        router.push("/login");
-      }
+    if (loginSuccess) {
+      toast.success("Account created successfully!");
+      router.push(`/profile/${username.value}`); // Go directly to profile with username
+    } else {
+      toast.success("Account created! Please log in.");
+      router.push("/login");
     }
   }
 };

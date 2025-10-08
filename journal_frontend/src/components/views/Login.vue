@@ -26,7 +26,7 @@ const handleLogin = async () => {
   
   if (success) {
     toast.success("Successfully logged in!");
-    await router.push("/profile")
+    await router.push(`/profile/${username.value}`)
   } else {
     toast.error("Invalid username or password!");
   }
