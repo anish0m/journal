@@ -49,4 +49,9 @@ export const actions = {
       this.loading = false;
     }
   },
+  clearProfile(this: any) {
+    this.profile = null;
+    this.loading = false;
+    this.error = "";
+  },
 };

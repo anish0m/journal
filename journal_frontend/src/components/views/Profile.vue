@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
-import { useUserStore, useJournalStore } from "../../store";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import { useUserStore, useJournalStore, useAuthStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
 import BaseButton from "../reusable/buttons/base/BaseButton.vue";
-import BootstrapButton from "../reusable/buttons/large/BootstrapButton.vue";
+import BootstrapButton from "../reusable/buttons/base/BootstrapButton.vue";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Modal from "../reusable/Modal.vue";
 
 const editMode = ref(false);
 const showModal = ref(false);
 
+const router = useRouter();
+const toast = useToast();
 const userStore = useUserStore();
 const journalStore = useJournalStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
   userStore.fetchProfile();
@@ -117,6 +122,14 @@ const handleJournalSuccess = () => {
 const handleJournalModalClose = () => {
   showModal.value = false;
 };
+
+const handleLogout = async () => {
+  await authStore.logout();
+  userStore.clearProfile();
+  journalStore.clearEntries();
+  toast.success("Successfully logged out!");
+  router.push("/login");
+};
 </script>
 
 <template>
@@ -140,6 +153,13 @@ const handleJournalModalClose = () => {
                   </p>
                   <!-- <BaseButton class="me-1" label="Follow" :is-button="true" /> -->
                   <!-- <BaseButton label="Message" :is-button="true" /> -->
+                  <BootstrapButton
+                    label="Log Out"
+                    type="danger"
+                    :is-button="true"
+                    class="me-2"
+                    @click="handleLogout"
+                  />
                   <BootstrapButton
                     label="Delete Account"
                     type="danger"

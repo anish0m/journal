@@ -31,4 +31,9 @@ export const actions = {
       this.loading = false;
     }
   },
+  clearEntries(this: any) {
+    this.entries = [];
+    this.loading = false;
+    this.error = "";
+  },
 };

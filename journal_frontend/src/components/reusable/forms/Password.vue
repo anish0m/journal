@@ -12,8 +12,6 @@ const emitHandler = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("update:modelValue", target.value);
 };
-
-console.log(props);
 </script>
 
 <template>
