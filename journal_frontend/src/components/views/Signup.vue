@@ -4,7 +4,7 @@ import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import FieldInput from "../reusable/forms/FieldInput.vue";
 import Password from "../reusable/forms/Password.vue";
-import LargeButton from "../reusable/buttons/LargeButton.vue";
+import BaseButton from "../reusable/buttons/large/BaseButton.vue";
 import { useAuthStore } from "../../store";
 import Email from "../reusable/forms/Email.vue";
 
@@ -41,20 +41,18 @@ const handleSignup = async () => {
   });
 
   if (success) {
-    if (success) {
-      // Auto-login after successful signup
-      const loginSuccess = await authStore.login({
-        username: username.value,
-        password: password.value,
-      });
+    // Auto-login after successful signup
+    const loginSuccess = await authStore.login({
+      username: username.value,
+      password: password.value,
+    });
 
-      if (loginSuccess) {
-        toast.success("Account created successfully!");
-        router.push("/profile"); // Go directly to profile
-      } else {
-        toast.success("Account created! Please log in.");
-        router.push("/login");
-      }
+    if (loginSuccess) {
+      toast.success("Account created successfully!");
+      router.push(`/profile/${username.value}`); // Go directly to profile with username
+    } else {
+      toast.success("Account created! Please log in.");
+      router.push("/login");
     }
   }
 };
@@ -124,14 +122,14 @@ const handleSignup = async () => {
                 </div>
                 <div class="col-12">
                   <div class="d-grid">
-                    <LargeButton
+                    <BaseButton
                       label="Sign up"
                       :is-submit="true"
                       :disabled="authStore.loading"
                       :loading="authStore.loading"
                     >
                       {{ authStore.loading ? "Signing up..." : "Sign up" }}
-                    </LargeButton>
+                    </BaseButton>
                   </div>
                 </div>
               </div>

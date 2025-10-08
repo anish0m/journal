@@ -6,6 +6,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
   isButton: {
     type: Boolean,
     default: false,
@@ -32,7 +36,8 @@ const buttonType = computed<"button" | "submit" | "reset">(() => {
 <template>
   <div class="d-grid">
     <button
-      class="btn bsb-btn-xl btn-danger"
+      class="btn bsb-btn-xl"
+      :class="`btn-${type}`"
       :type="buttonType"
       @click="emit('click')"
     >

@@ -22,10 +22,19 @@ export const actions = {
     }
   },
 
-  logout(this: any) {
-    this.token = "";
-    localStorage.removeItem("auth_token");
-    delete Axios.defaults.headers.common["Authorization"];
+  async logout(this: any) {
+    try {
+      // Call backend to destroy token
+      await Axios.post("/auth/token/logout/");
+    } catch (err) {
+      // Even if backend call fails, clear local state
+      console.error("Logout error:", err);
+    } finally {
+      // Clear local authentication state
+      this.token = "";
+      localStorage.removeItem("auth_token");
+      delete Axios.defaults.headers.common["Authorization"];
+    }
   },
 
   async signup(this: any, userData: SignupPayload) {

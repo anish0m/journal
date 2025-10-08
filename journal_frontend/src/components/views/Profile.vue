@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
-import { useUserStore, useJournalStore } from "../../store";
+import { useRouter } from "vue-router";
+import { useToast } from "vue-toastification";
+import { useUserStore, useJournalStore, useAuthStore } from "../../store";
 import type { UserProfile } from "../../store/user/user.types";
-import BaseButton from "../reusable/buttons/BaseButton.vue";
-import LargeDangerButton from "../reusable/buttons/LargeDangerButton.vue";
-import BaseSuccessButton from "../reusable/buttons/BaseSuccessButton.vue";
-import BaseSecondaryButton from "../reusable/buttons/BaseSecondaryButton.vue";
+import BaseButton from "../reusable/buttons/base/BaseButton.vue";
+import BootstrapButton from "../reusable/buttons/base/BootstrapButton.vue";
 import FieldInput from "../reusable/forms/FieldInput.vue";
-import Modal from "../reusable/Modal.vue";
+import Entry from "../reusable/modals/Entry.vue";
+import Confirm from "../reusable/modals/Confirm.vue";
 
 const editMode = ref(false);
 const showModal = ref(false);
+const showDeleteModal = ref(false);
 
+const router = useRouter();
+const toast = useToast();
 const userStore = useUserStore();
 const journalStore = useJournalStore();
+const authStore = useAuthStore();
 
 onMounted(() => {
   userStore.fetchProfile();
@@ -41,15 +46,19 @@ const temporaryUserData = ref<UserProfile>({
 });
 
 // Watch for changes in user data and update temporary data
-watch(user, (newUser) => {
-  if (newUser) {
-    reloadTemporaryUserData();
-  }
-}, { deep: true, immediate: true });
+watch(
+  user,
+  (newUser) => {
+    if (newUser) {
+      reloadTemporaryUserData();
+    }
+  },
+  { deep: true, immediate: true }
+);
 
 // Watch editMode changes
 watch(editMode, (newMode) => {
-  console.log('Edit mode changed to:', newMode);
+  console.log("Edit mode changed to:", newMode);
   if (newMode) {
     reloadTemporaryUserData();
   }
@@ -115,6 +124,39 @@ const handleJournalSuccess = () => {
 const handleJournalModalClose = () => {
   showModal.value = false;
 };
+
+const handleLogout = async () => {
+  await authStore.logout();
+  userStore.clearProfile();
+  journalStore.clearEntries();
+  toast.success("Successfully logged out!");
+  router.push("/login");
+};
+
+const handleDeleteAccount = () => {
+  showDeleteModal.value = true;
+  console.log("Delete account button clicked");
+};
+
+const handleDeleteConfirm = async (password: string) => {
+  const success = await userStore.deleteAccount(password);
+  
+  if (success) {
+    toast.success("Account deleted successfully!");
+    // Clear auth and profile data
+    await authStore.logout();
+    userStore.clearProfile();
+    journalStore.clearEntries();
+    showDeleteModal.value = false;
+    router.push("/login");
+  } else {
+    toast.error(userStore.error || "Failed to delete account. Please check your password.");
+  }
+};
+
+const handleDeleteModalClose = () => {
+  showDeleteModal.value = false;
+};
 </script>
 
 <template>
@@ -138,7 +180,19 @@ const handleJournalModalClose = () => {
                   </p>
                   <!-- <BaseButton class="me-1" label="Follow" :is-button="true" /> -->
                   <!-- <BaseButton label="Message" :is-button="true" /> -->
-                  <LargeDangerButton label="Delete Account" :is-button="true" />
+                  <BootstrapButton
+                    label="Log Out"
+                    type="danger"
+                    :is-button="true"
+                    class="me-2"
+                    @click="handleLogout"
+                  />
+                  <BootstrapButton
+                    label="Delete Account"
+                    type="danger"
+                    :is-button="true"
+                    @click="handleDeleteAccount"
+                  />
                 </div>
               </div>
             </div>
@@ -312,14 +366,16 @@ const handleJournalModalClose = () => {
               <div class="row">
                 <div class="col-sm-12">
                   <div v-if="editMode">
-                    <BaseSecondaryButton
+                    <BootstrapButton
                       label="Cancel"
+                      type="secondary"
                       :is-button="true"
                       @click="handleCancelProfile"
                       class="px-3"
                     />
-                    <BaseSuccessButton
+                    <BootstrapButton
                       label="Save"
+                      type="success"
                       :is-button="true"
                       @click="handleSaveProfile"
                       class="px-3 ms-2"
@@ -405,12 +461,20 @@ const handleJournalModalClose = () => {
       </div>
     </div>
   </div>
-  <Modal
+  <Entry
     :show="showModal"
     :title="'New Journal Entry'"
     :content="'Write your thoughts...'"
     @close="handleJournalModalClose"
     @success="handleJournalSuccess"
+  />
+  <Confirm
+    :show="showDeleteModal"
+    :title="'Delete Account'"
+    :message="'Are you sure you want to delete your account? This will permanently remove all your data including journal entries.'"
+    :loading="userStore.loading"
+    @close="handleDeleteModalClose"
+    @confirm="handleDeleteConfirm"
   />
 </template>
 

@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useAuthStore, useUserStore } from "../../store";
 
-const isAuthenticated = ref(false);
-const userName = ref("");
+const authStore = useAuthStore();
+const userStore = useUserStore();
+
+const isAuthenticated = computed(() => authStore.isAuthenticated);
+const user = computed(() => userStore.profile);
+const userName = computed(() => user.value?.username || "");
 </script>
 
 <template>
@@ -20,19 +25,19 @@ const userName = ref("");
       <!-- Right: Profile -->
       <div>
         <router-link
-          v-if="isAuthenticated"
-          to="/profile"
+          v-if="isAuthenticated && userName"
+          :to="`/profile/${userName}`"
           class="profile-link d-flex align-items-center"
         >
-          <span class="me-2">{{ userName || "Profile" }}</span>
+          <span class="me-2">{{ userName }}</span>
           <i class="bi bi-person-circle profile-icon"></i>
         </router-link>
         <router-link
           v-else
-          to="/profile"
+          to="/login"
           class="profile-link d-flex align-items-center"
         >
-          <span class="profile-name">Profile</span>
+          <span class="profile-name">Login</span>
           <i class="bi bi-person-circle profile-icon"></i>
         </router-link>
       </div>
